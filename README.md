@@ -1,2 +1,1 @@
-Florian Hinterberger
-Péter Varga
+Florian Hinterberger, Péter Varga
