@@ -1,1 +1,0 @@
-Florian Hinterberger, Péter Varga
