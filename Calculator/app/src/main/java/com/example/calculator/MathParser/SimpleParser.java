@@ -21,15 +21,26 @@ public class SimpleParser implements MathParser
     public  boolean checkExpression(String expression) {
         //con not start with operator
         boolean operatorFlag = false;
-        //english notation ,1 = 0,1
+        //english notation .1 = 0.1
         boolean pointFlag = true;
+        //negative
+        boolean negativeFlag = true;
 
-        for (char character: expression.toCharArray()) {
+        //TODO 6+
+        //TODO 10.+32
+
+        String mathExpression = expression.replaceAll(" ", "");
+
+        for (char character: mathExpression.toCharArray()) {
             //operator entered
             if (allowedOperators.contains(character)){
-                //2 ops in a row
-                if(!operatorFlag)
+                //starts with negative number
+                if(character == '-' && negativeFlag)
+                    negativeFlag = false;
+                    //2 ops in a row
+                else if(!operatorFlag)
                     return false;
+
                 operatorFlag = false;
                 pointFlag = true;
             }
@@ -39,6 +50,7 @@ public class SimpleParser implements MathParser
                 if(!pointFlag)
                     return false;
                 pointFlag = false;
+                operatorFlag = false;
             }
             //digit entered
             else if(Character.isDigit(character))
@@ -51,7 +63,7 @@ public class SimpleParser implements MathParser
                 return false;
             }
         }
-        return true;
+        return Character.isDigit(mathExpression.charAt(mathExpression.length() - 1));
     }
 
     @Override
@@ -60,22 +72,23 @@ public class SimpleParser implements MathParser
             throw new RuntimeException("Illegal Syntax");
 
         String mathExpression = expression.replaceAll(" ", "");
-        mathExpression = expression.replaceAll(pointSign.toString(), "");
+        mathExpression = expression.replaceAll(pointSign.toString(), ".");
 
-
-        Pattern dividePattern = Pattern.compile("([0-9]*\\.?[0-9]+)(/)([0-9]*\\.?[0-9]+)");
-        Pattern multiplyPattern = Pattern.compile("([0-9]*\\.?[0-9]+)(\\*)([0-9]*\\.?[0-9]+)");
-        Pattern subtractPattern = Pattern.compile("([0-9]*\\.?[0-9]+)(-)([0-9]*\\.?[0-9]+)");
-        Pattern addPattern = Pattern.compile("([0-9]*\\.?[0-9]+)(\\+)([0-9]*\\.?[0-9]+)");
+        // -10+-100
+        //Pattern dividePattern = Pattern.compile("([^0-9]?-)?([0-9]*\\.?[0-9]+)(/)([0-9]*\\.?[0-9]+)");
+        Pattern dividePattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(/)(-?[0-9]*\\.?[0-9]+)");
+        Pattern multiplyPattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(\\*)(-?[0-9]*\\.?[0-9]+)");
+        Pattern subtractPattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(-)(-?[0-9]*\\.?[0-9]+)");
+        Pattern addPattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(\\+)(-?[0-9]*\\.?[0-9]+)");
 
         String result = "";
 
         Matcher matcher = dividePattern.matcher(mathExpression);
         while(matcher.find())
         {
-            //group 0 = everything, 1 = first bracket,...
-             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
-             mathExpression = matcher.replaceAll(result);
+            //group 0 = everything, 1 = first operand, 2 = operator , 3 = second operand
+            result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
+            mathExpression = matcher.replaceAll(result);
         }
 
         matcher = multiplyPattern.matcher(mathExpression);
