@@ -11,6 +11,8 @@
 
     <color name="bluegrey900">#263238</color>
     <color name="bluegrey600">#546e7a</color>
+    <color name="lightgreen800">#558b2f</color>
+    <color name="orange900">#fb8c00</color>
 
 
 </resources>

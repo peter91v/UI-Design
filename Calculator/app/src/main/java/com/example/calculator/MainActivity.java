@@ -3,72 +3,60 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.calculator.MathParser.MathParser;
+import com.example.calculator.MathParser.SimpleParser;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnC, btnseven, btnfour, btnone, btnPerc, btnDiv, btneight, btnfive, btntwo, btnNull;
-    private Button btnMult, btnNine, btnSix, btnTree, btnKomm, btnDEL, btnMin, btnPlus, btnRes;
-    ImageButton btnMenu, imbtnx;
+    private Button btnC,btnMenu,btnDEL, btnRes, clear;
+    private ImageButton imbtnx;
     private TextView tvRes;
-    private LinearLayout tvHist, Main;
+    private LinearLayout tvHist,tvHist2, Main;
     private String result;
     private List<Button> buttons;
-    private Boolean plus,minus,division,multiply;
     private Integer id = 0, tvid = 0;
 
     private static final int[] BUTTON_IDS = new int[]{
-            R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9};
+            R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnplus,R.id.btnminus,R.id.btnmult, R.id.btndiv, R.id.btncomma };
 
-    private final String[] values = {"0","1","2","3","4","5","6","7","8","9"};
+    private static final String[] values = {"0","1","2","3","4","5","6","7","8","9","+","-","*","/",","};
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         btnC= findViewById(R.id.btnc);
-        btnPerc= findViewById(R.id.btnpr);
-        btnDiv= findViewById(R.id.btndiv);
-        btnMult= findViewById(R.id.btnmult);
-        btnKomm= findViewById(R.id.btncomma);
         btnDEL= findViewById(R.id.btndel);
-        btnMin= findViewById(R.id.btnminus);
-        btnPlus= findViewById(R.id.btnplus);
-        btnRes= findViewById(R.id.btnresult);
-        tvRes= findViewById(R.id.calcres);
-        btnDEL.setEnabled(false);
         btnMenu = findViewById(R.id.btnmenu);
-        tvHist = findViewById(R.id.tvhist);
+        btnRes= findViewById(R.id.btnresult);
         imbtnx = findViewById(R.id.imbtnX);
+
+        tvRes= findViewById(R.id.calcres);
+        tvHist = findViewById(R.id.tvhist);
+
         Main = findViewById(R.id.main);
+
+        btnDEL.setEnabled(false);
+
         buttons = new ArrayList<Button>();
-        int x = 0;
-        for(int btnid : BUTTON_IDS) {
+        buttons = creatButtons(BUTTON_IDS, values);
 
-            Button button = (Button)findViewById(btnid);
-            int finalX = x;
-            button.setOnClickListener(v -> {
-                tvRes.setText(tvRes.getText() + values[finalX]);
-                btnDEL.setEnabled(true);
-                result = (String) tvRes.getText();
-
-            });
-            buttons.add(button);
-            x++;
-        }
 
         imbtnx.setOnClickListener(v -> {
             tvHist.setVisibility(View.INVISIBLE);
@@ -84,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnC.setOnClickListener(v -> {
-
+            result = "";
+            tvRes.setText("");
         });
+
         btnDEL.setOnClickListener(v -> {
             if (result.length() != 0){
 
@@ -95,19 +85,17 @@ public class MainActivity extends AppCompatActivity {
                 btnDEL.setEnabled(false);}
                 tvRes.setText(result);
         });
-        btnPlus.setOnClickListener(v -> {
+        Context context = getApplicationContext();
 
 
-        });
-        btnMin.setOnClickListener(v -> {
-
-        });
         btnRes.setOnClickListener(v -> {
 
             TextView newtv = new TextView(this);
             newtv.setText(tvRes.getText());
             newtv.setTextColor(Color.WHITE);
             newtv.setTextSize(24);
+            newtv.setPadding(25, 0, 0, 0);
+            newtv.setPaintFlags(newtv.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
             //newtv.setBackgroundColor(Color.GRAY);
 
             newtv.setId(tvid);
@@ -122,10 +110,50 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
 
             ((LinearLayout) tvHist).addView(newtv);
-        });
 
+            MathParser mP = new SimpleParser();
+            try {
+                tvRes.setText(mP.calculateExpression(result));
+                result = (String) tvRes.getText();
+            }
+            catch (Exception e){
+                CharSequence text = e.getMessage();
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+
+        });
 
     }
 
+    /** Creating buttons and adding functions to numeric/operator buttons
+     *
+     * @param ids int[]
+     * @param characters String[]
+     * @return A list will be returned
+     */
+     @SuppressLint("SetTextI18n")
+     List<Button> creatButtons(int[] ids, String[] characters){
+         List<Button> Buttons = new ArrayList<Button>();
+        int x = 0;
+         tvRes= findViewById(R.id.calcres);
+
+         for(int btnid : ids) {
+
+            Button button = (Button)findViewById(btnid);
+            int finalX = x;
+            button.setOnClickListener(v -> {
+                tvRes.setText(tvRes.getText() + characters[finalX]);
+                btnDEL.setEnabled(true);
+                result = (String) tvRes.getText();
+
+            });
+            buttons.add(button);
+            x++;
+        }
+        return Buttons;
+    };
 
 }
