@@ -26,9 +26,6 @@ public class SimpleParser implements MathParser
         //negative
         boolean negativeFlag = true;
 
-        //TODO 6+
-        //TODO 10.+32
-
         String mathExpression = expression.replaceAll(" ", "");
 
         for (char character: mathExpression.toCharArray()) {
@@ -68,6 +65,8 @@ public class SimpleParser implements MathParser
 
     @Override
     public String calculateExpression(String expression) throws RuntimeException, ArithmeticException {
+        if(expression.isEmpty())
+            throw new RuntimeException("Expression is empty");
         if (!checkExpression(expression))
             throw new RuntimeException("Illegal Syntax");
 
