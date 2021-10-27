@@ -16,20 +16,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import com.example.calculator.MathParser.MathParser;
 import com.example.calculator.MathParser.SimpleParser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnC,btnMenu,btnDEL, btnRes, clear;
+    private Button btnC,btnMenu,btnDEL, btnRes, btnclear;
     private ImageButton imbtnx;
     private TextView tvRes;
     private LinearLayout tvHist,tvHist2, Main;
     private String result;
     private List<Button> buttons;
     private Integer id = 0, tvid = 0;
-
+    private Vector<TextView> result_history;
     private static final int[] BUTTON_IDS = new int[]{
             R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnplus,R.id.btnminus,R.id.btnmult, R.id.btndiv, R.id.btncomma };
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide(); //<< this
         setContentView(R.layout.activity_main);
 
         btnC= findViewById(R.id.btnc);
@@ -49,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         tvRes= findViewById(R.id.calcres);
         tvHist = findViewById(R.id.tvhist);
+        tvHist2 = findViewById(R.id.hist2);
 
         Main = findViewById(R.id.main);
-
+        btnclear = findViewById(R.id.clear);
         btnDEL.setEnabled(false);
 
         buttons = new ArrayList<Button>();
@@ -86,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 tvRes.setText(result);
         });
         Context context = getApplicationContext();
-
+        btnclear.setOnClickListener(v ->{
+                ((LinearLayout) tvHist2).removeAllViews();
+        });
 
         btnRes.setOnClickListener(v -> {
 
@@ -109,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            ((LinearLayout) tvHist).addView(newtv);
+
+            ((LinearLayout) tvHist2).addView(newtv);
 
             MathParser mP = new SimpleParser();
             try {
