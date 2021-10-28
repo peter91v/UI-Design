@@ -35,9 +35,10 @@ public class SimpleParser implements MathParser
                 if(character == '-' && negativeFlag)
                     negativeFlag = false;
                     //2 ops in a row
-                else if(!operatorFlag)
+                else if(!operatorFlag && !negativeFlag)
                     return false;
-
+                else
+                    negativeFlag = true;
                 operatorFlag = false;
                 pointFlag = true;
             }
@@ -82,32 +83,36 @@ public class SimpleParser implements MathParser
         String result = "";
 
         Matcher matcher = dividePattern.matcher(mathExpression);
-        while(matcher.find())
+        while(matcher.find(0))
         {
             //group 0 = everything, 1 = first operand, 2 = operator , 3 = second operand
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
-            mathExpression = matcher.replaceAll(result);
+            mathExpression = matcher.replaceFirst(result);
+            matcher = dividePattern.matcher(mathExpression);
         }
 
         matcher = multiplyPattern.matcher(mathExpression);
-        while(matcher.find())
+        while(matcher.find(0))
         {
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
-            mathExpression = matcher.replaceAll(result);
+            mathExpression = matcher.replaceFirst(result);
+            matcher = multiplyPattern.matcher(mathExpression);
         }
 
         matcher = subtractPattern.matcher(mathExpression);
-        while(matcher.find())
+        while(matcher.find(0))
         {
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
-            mathExpression = matcher.replaceAll(result);
+            mathExpression = matcher.replaceFirst(result);
+            matcher = multiplyPattern.matcher(mathExpression);
         }
 
         matcher = addPattern.matcher(mathExpression);
-        while(matcher.find())
+        while(matcher.find(0))
         {
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
-            mathExpression = matcher.replaceAll(result);
+            mathExpression = matcher.replaceFirst(result);
+            matcher = multiplyPattern.matcher(mathExpression);
         }
 
         return mathExpression.replaceAll("\\.", pointSign.toString());
