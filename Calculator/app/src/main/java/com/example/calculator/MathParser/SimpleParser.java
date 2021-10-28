@@ -74,7 +74,6 @@ public class SimpleParser implements MathParser
         mathExpression = expression.replaceAll(pointSign.toString(), ".");
 
         // -10+-100
-        //Pattern dividePattern = Pattern.compile("([^0-9]?-)?([0-9]*\\.?[0-9]+)(/)([0-9]*\\.?[0-9]+)");
         Pattern dividePattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(/)(-?[0-9]*\\.?[0-9]+)");
         Pattern multiplyPattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(\\*)(-?[0-9]*\\.?[0-9]+)");
         Pattern subtractPattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)(-)(-?[0-9]*\\.?[0-9]+)");
