@@ -13,24 +13,21 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+import java.util.Objects;
 
 import com.example.calculator.MathParser.MathParser;
 import com.example.calculator.MathParser.SimpleParser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnC,btnMenu,btnDEL, btnRes, btnclear;
-    private ImageButton imbtnx;
+    private Button btnDEL;
     private TextView tvRes;
     private LinearLayout tvHist,tvHist2, Main;
     private String result;
     private List<Button> buttons;
-    private Integer id = 0, tvid = 0;
-    private Vector<TextView> result_history;
+    private Integer tvid = 0;
     private static final int[] BUTTON_IDS = new int[]{
             R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnplus,R.id.btnminus,R.id.btnmult, R.id.btndiv, R.id.btncomma };
 
@@ -40,38 +37,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide(); //<< this
+        Objects.requireNonNull(getSupportActionBar()).hide(); //<< this
         setContentView(R.layout.activity_main);
 
-        btnC= findViewById(R.id.btnc);
+        Button btnC = findViewById(R.id.btnc);
         btnDEL= findViewById(R.id.btndel);
-        btnMenu = findViewById(R.id.btnmenu);
-        btnRes= findViewById(R.id.btnresult);
-        imbtnx = findViewById(R.id.imbtnX);
+        Button btnMenu = findViewById(R.id.btnmenu);
+        Button btnRes = findViewById(R.id.btnresult);
+        ImageButton imbtnx = findViewById(R.id.imbtnX);
 
         tvRes= findViewById(R.id.calcres);
         tvHist = findViewById(R.id.tvhist);
         tvHist2 = findViewById(R.id.hist2);
 
         Main = findViewById(R.id.main);
-        btnclear = findViewById(R.id.clear);
+        Button btnclear = findViewById(R.id.clear);
         btnDEL.setEnabled(false);
 
-        buttons = new ArrayList<Button>();
+        buttons = new ArrayList<>();
         buttons = creatButtons(BUTTON_IDS, values);
 
 
-        imbtnx.setOnClickListener(v -> {
-            tvHist.setVisibility(View.INVISIBLE);
-
-        });
+        imbtnx.setOnClickListener(v -> tvHist.setVisibility(View.INVISIBLE));
         btnMenu.setOnClickListener(v -> {
 
             tvHist.setVisibility(View.VISIBLE);
-            Main.setOnClickListener(c -> {
-                tvHist.setVisibility(View.INVISIBLE);
-
-            });
+            Main.setOnClickListener(c -> tvHist.setVisibility(View.INVISIBLE));
         });
 
         btnC.setOnClickListener(v -> {
@@ -89,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 tvRes.setText(result);
         });
         Context context = getApplicationContext();
-        btnclear.setOnClickListener(v ->{
-                ((LinearLayout) tvHist2).removeAllViews();
-        });
+        btnclear.setOnClickListener(v -> tvHist2.removeAllViews());
 
         btnRes.setOnClickListener(v -> {
 
@@ -115,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
 
 
-            ((LinearLayout) tvHist2).addView(newtv);
+            tvHist2.addView(newtv);
 
             MathParser mP = new SimpleParser();
             try {
@@ -142,13 +131,13 @@ public class MainActivity extends AppCompatActivity {
      */
      @SuppressLint("SetTextI18n")
      List<Button> creatButtons(int[] ids, String[] characters){
-         List<Button> Buttons = new ArrayList<Button>();
+         List<Button> Buttons = new ArrayList<>();
         int x = 0;
          tvRes= findViewById(R.id.calcres);
 
          for(int btnid : ids) {
 
-            Button button = (Button)findViewById(btnid);
+            Button button = findViewById(btnid);
             int finalX = x;
             button.setOnClickListener(v -> {
                 tvRes.setText(tvRes.getText() + characters[finalX]);
@@ -160,6 +149,6 @@ public class MainActivity extends AppCompatActivity {
             x++;
         }
         return Buttons;
-    };
+    }
 
 }

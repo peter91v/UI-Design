@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5947916666666667" />
         <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/drawable/close.xml" value="0.5984375" />
         <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.5984375" />
         <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.9453125" />
+        <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5947916666666667" />
         <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/layout/side_bar.xml" value="0.5822916666666667" />
+        <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/mipmap-anydpi-v26/hv_ic_launcher.xml" value="0.5947916666666667" />
+        <entry key="..\:/FH/Semester5/UI-Design/Calculator/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.5947916666666667" />
       </map>
     </option>
   </component>
