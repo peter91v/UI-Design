@@ -62,7 +62,18 @@ public class MainActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(v -> {
 
             tvHist.setVisibility(View.VISIBLE);
-            Main.setOnClickListener(c -> tvHist.setVisibility(View.INVISIBLE));
+            setVisibility(false);
+            btnC.setEnabled(false);
+            btnRes.setEnabled(false);
+            btnDEL.setEnabled(false);
+
+            Main.setOnClickListener(c ->{
+                tvHist.setVisibility(View.INVISIBLE);
+                setVisibility(true);
+                btnC.setEnabled(true);
+                btnRes.setEnabled(true);
+                btnDEL.setEnabled(true);
+            });
         });
 
         btnC.setOnClickListener(v -> {
@@ -145,10 +156,15 @@ public class MainActivity extends AppCompatActivity {
                 result = (String) tvRes.getText();
 
             });
-            buttons.add(button);
+            Buttons.add(button);
             x++;
         }
         return Buttons;
     }
+    void setVisibility(Boolean state){
+        for(Button i : buttons){
+            i.setEnabled(state);
+        }
 
+    }
 }
