@@ -22,7 +22,7 @@ import com.example.calculator.MathParser.SimpleParser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnDEL;
+    private Button btnDEL,btnRes,btnC;
     private TextView tvRes;
     private LinearLayout tvHist,tvHist2, Main;
     private String result;
@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide(); //<< this
         setContentView(R.layout.activity_main);
 
-        Button btnC = findViewById(R.id.btnc);
+        btnC = findViewById(R.id.btnc);
         btnDEL= findViewById(R.id.btndel);
         Button btnMenu = findViewById(R.id.btnmenu);
-        Button btnRes = findViewById(R.id.btnresult);
+        btnRes = findViewById(R.id.btnresult);
         ImageButton imbtnx = findViewById(R.id.imbtnX);
 
         tvRes= findViewById(R.id.calcres);
@@ -58,21 +58,20 @@ public class MainActivity extends AppCompatActivity {
         buttons = creatButtons(BUTTON_IDS, values);
 
 
-        imbtnx.setOnClickListener(v -> tvHist.setVisibility(View.INVISIBLE));
+        imbtnx.setOnClickListener(v -> {
+            tvHist.setVisibility(View.INVISIBLE);
+            setVisibility(true);
+
+        });
         btnMenu.setOnClickListener(v -> {
 
             tvHist.setVisibility(View.VISIBLE);
             setVisibility(false);
-            btnC.setEnabled(false);
-            btnRes.setEnabled(false);
-            btnDEL.setEnabled(false);
 
             Main.setOnClickListener(c ->{
                 tvHist.setVisibility(View.INVISIBLE);
                 setVisibility(true);
-                btnC.setEnabled(true);
-                btnRes.setEnabled(true);
-                btnDEL.setEnabled(true);
+
             });
         });
 
@@ -82,14 +81,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnDEL.setOnClickListener(v -> {
-            if (result.length() != 0){
-
-                result = result.substring(0, result.length() - 1);}
-
-            else{
+            if (result.length() != 0)
+            {
+                result = result.substring(0, result.length() - 1);
+            }
+            else
+                {
                 btnDEL.setEnabled(false);}
                 tvRes.setText(result);
         });
+
         Context context = getApplicationContext();
         btnclear.setOnClickListener(v -> tvHist2.removeAllViews());
 
@@ -101,19 +102,19 @@ public class MainActivity extends AppCompatActivity {
             newtv.setTextSize(24);
             newtv.setPadding(25, 0, 0, 0);
             newtv.setPaintFlags(newtv.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-            //newtv.setBackgroundColor(Color.GRAY);
 
             newtv.setId(tvid);
             newtv.setOnClickListener(c -> {
                 tvRes.setText(newtv.getText());
+                result = (String) tvRes.getText();
                 tvHist.setVisibility(View.INVISIBLE);
+                setVisibility(true);
 
             });
             tvid++;
             newtv.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
-
 
             tvHist2.addView(newtv);
 
@@ -129,9 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
-
         });
-
     }
 
     /** Creating buttons and adding functions to numeric/operator buttons
@@ -161,10 +160,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return Buttons;
     }
+
+    /** This function by True set buttons Enabled, by false set buttons disabled
+     *
+     * @param state Boolean,
+     */
     void setVisibility(Boolean state){
         for(Button i : buttons){
             i.setEnabled(state);
         }
-
+        btnC.setEnabled(state);
+        btnRes.setEnabled(state);
+        btnDEL.setEnabled(state);
     }
 }
