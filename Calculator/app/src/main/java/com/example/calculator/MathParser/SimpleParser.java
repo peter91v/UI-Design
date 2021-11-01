@@ -104,7 +104,7 @@ public class SimpleParser implements MathParser
         {
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
             mathExpression = matcher.replaceFirst(result);
-            matcher = multiplyPattern.matcher(mathExpression);
+            matcher = subtractPattern.matcher(mathExpression);
         }
 
         matcher = addPattern.matcher(mathExpression);
@@ -112,7 +112,7 @@ public class SimpleParser implements MathParser
         {
             result = calculate(matcher.group(1), matcher.group(3), matcher.group(2));
             mathExpression = matcher.replaceFirst(result);
-            matcher = multiplyPattern.matcher(mathExpression);
+            matcher = addPattern.matcher(mathExpression);
         }
 
         return mathExpression.replaceAll("\\.", pointSign.toString());
