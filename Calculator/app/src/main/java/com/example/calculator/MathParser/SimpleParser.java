@@ -66,7 +66,7 @@ public class SimpleParser implements MathParser
 
     @Override
     public String calculateExpression(String expression) throws RuntimeException, ArithmeticException {
-        if(expression == null)
+        if(expression == null || expression.equals(""))
             throw new RuntimeException("Expression is empty");
         if (!checkExpression(expression))
             throw new RuntimeException("Illegal Syntax");
