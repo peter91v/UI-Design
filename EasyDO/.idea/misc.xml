@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w600dp/fragment_transform.xml" value="0.45458553791887124" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/content_main.xml" value="0.490036231884058" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_reflow.xml" value="0.5369791666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_transform.xml" value="0.5369791666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/item_transform.xml" value="0.5369791666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/nav_header_main.xml" value="0.5369791666666667" />
       </map>
     </option>
   </component>

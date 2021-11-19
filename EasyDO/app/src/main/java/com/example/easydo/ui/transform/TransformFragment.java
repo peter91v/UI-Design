@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -97,23 +98,27 @@ public class TransformFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull TransformViewHolder holder, int position) {
+            holder.checkbox.setText(getItem(position));
             holder.textView.setText(getItem(position));
-            holder.imageView.setImageDrawable(
+            holder.textView2.setText(getItem(position));
+            /*holder.imageView.setImageDrawable(
                     ResourcesCompat.getDrawable(holder.imageView.getResources(),
-                            drawables.get(position),
-                            null));
+                    drawables.get(position),
+                            null));*/
         }
     }
 
     private static class TransformViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView imageView;
+        private final CheckBox checkbox;
         private final TextView textView;
+        private final TextView textView2;
 
         public TransformViewHolder(ItemTransformBinding binding) {
             super(binding.getRoot());
-            imageView = binding.imageViewItemTransform;
+            checkbox = binding.checkBox;
             textView = binding.textViewItemTransform;
+            textView2 = binding.textViewItemDate;
         }
     }
 }

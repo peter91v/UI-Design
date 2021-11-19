@@ -5,28 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.easydo.R;
 import com.example.easydo.databinding.FragmentReflowBinding;
 
 public class ReflowFragment extends Fragment {
 
     private ReflowViewModel reflowViewModel;
-    private FragmentReflowBinding binding;
+private FragmentReflowBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+            ViewGroup container, Bundle savedInstanceState) {
         reflowViewModel =
                 new ViewModelProvider(this).get(ReflowViewModel.class);
 
-        binding = FragmentReflowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+    binding = FragmentReflowBinding.inflate(inflater, container, false);
+    View root = binding.getRoot();
 
         final TextView textView = binding.textReflow;
         reflowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -38,7 +36,7 @@ public class ReflowFragment extends Fragment {
         return root;
     }
 
-    @Override
+@Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
