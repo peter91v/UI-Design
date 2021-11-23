@@ -3,13 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/drawable/side_nav_bar.xml" value="0.3651041666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-keysexposed-qwerty/fragment_slideshow.xml" value="0.6273408239700374" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-notlong/calendar_layout.xml" value="0.19166666666666668" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w1240dp/activity_main.xml" value="0.36613119143239625" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w1240dp/app_bar_main.xml" value="0.3654618473895582" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w600dp/activity_main.xml" value="0.16181657848324515" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w600dp/app_bar_main.xml" value="0.48148148148148145" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w600dp/fragment_transform.xml" value="0.45458553791887124" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout-w600dp/item_transform.xml" value="0.48148148148148145" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/add_new_task_fragment.xml" value="0.19114583333333332" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/app_bar_main.xml" value="0.489766081871345" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/content_main.xml" value="0.490036231884058" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_calendar.xml" value="0.27044025157232704" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_item.xml" value="0.5708333333333333" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_item_list.xml" value="0.5708333333333333" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_language.xml" value="0.56875" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_reflow.xml" value="0.5369791666666667" />
-        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_transform.xml" value="0.5369791666666667" />
-        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/item_transform.xml" value="0.5369791666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_s.xml" value="0.19114583333333332" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_settings.xml" value="0.7365079365079366" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_slideshow.xml" value="0.3363886342804766" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/fragment_transform.xml" value="0.2" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/item_transform.xml" value="0.5" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/language_fragment.xml" value="0.703917790622993" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/nav_header_main.xml" value="0.5369791666666667" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/bottom_navigation.xml" value="0.56875" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/navigation_drawer.xml" value="0.9114583333333334" />
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/overflow.xml" value="0.9114583333333334" />  
         <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/fragment_transform.xml" value="0.4805253623188406" />
+
+
       </map>
     </option>
   </component>
