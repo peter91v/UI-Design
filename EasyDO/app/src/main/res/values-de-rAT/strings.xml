@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EasyDO</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Öffenen Navigations Schublade</string>
+    <string name="navigation_drawer_close">Schließen Navigations Schublade</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_desc">Navigation Kopf</string>
     <string name="action_settings">Einstellungen</string>
 
     <string name="menu_transform">ToDo</string>
@@ -16,10 +16,10 @@
     <string name="abbrechen">Abbrechen</string>
     <string name="beschreibung">Beschreibung</string>
     <string name="datum">Datum</string>
-    <string name="name">Aufgabe Name</string>
+    <string name="name">Name der Aufgabe</string>
     <string name="language">Sprache</string>
-    <string name="radiobutton">RadioButton</string>
-    <string name="radiobutton1">Englisch</string>
+    <string name="radiobutton">RadioKnopf</string>
+    <string name="radiobutton1">Angelsächsisch</string>
     <string name="radiobutton2">Deutsch</string>
     <string name="radiobutton3">Ungarisch</string>
     <string name="quit">Zurück</string>
