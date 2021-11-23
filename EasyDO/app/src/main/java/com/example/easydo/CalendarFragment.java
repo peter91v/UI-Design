@@ -1,41 +1,45 @@
 package com.example.easydo;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
-import java.util.Calendar;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.easydo.databinding.FragmentCalendarBinding;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import com.example.easydo.databinding.FragmentSlideshowBinding;
+import com.example.easydo.ui.transform.TransformViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Calendar#newInstance} factory method to
+ * Use the {@link CalendarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Calendar extends Fragment {
+public class CalendarFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     FragmentCalendarBinding binding;
+    FragmentSlideshowBinding slidBlinding;
+    EditText textView = null;
+    Button savebutton, quitButton;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public Calendar() {
+    public CalendarFragment() {
         // Required empty public constructor
     }
 
@@ -48,8 +52,8 @@ public class Calendar extends Fragment {
      * @return A new instance of fragment Calendar.
      */
     // TODO: Rename and change types and number of parameters
-    public static Calendar newInstance(String param1, String param2) {
-        Calendar fragment = new Calendar();
+    public static CalendarFragment newInstance(String param1, String param2) {
+        CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,22 +61,43 @@ public class Calendar extends Fragment {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.ENGLISH);
 
-        Date date = calendar.getTime();
-        System.out.println(sdf.format(date));
+    }
 
-
+    private StringBuilder toString(long date) {
+        return new StringBuilder()
+                .append(date);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view2 = inflater.inflate(R.layout.fragment_slideshow, container, false);
+
+        Context context = getContext();
+
+
+        long date = 25;
+        savebutton = view.findViewById(R.id.save_date);
+        savebutton.setOnClickListener(v->{
+
+            textView = view2.findViewById(R.id.set_task_date);
+
+            textView.setText("sasad");
+        });
+
+        quitButton = view.findViewById(R.id.close_date);
+        quitButton.setOnClickListener(v->{
+            FragmentManager manager = getChildFragmentManager();
+                 manager.beginTransaction().remove(this).commit();
+        });
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
+
 }

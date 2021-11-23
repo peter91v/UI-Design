@@ -50,49 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         SlideshowFragment slideshowFragment = new SlideshowFragment();
 
-
-
-/*
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            // Set a title for alert dialog
-            builder.setTitle("Say Hello!");
-            // Show a message on alert dialog
-
-            builder.setMessage("Are you want to do this?");
-
-            // Set the positive button
-
-            builder.setPositiveButton("Say",null);
-            // Set the negative button
-
-            builder.setNegativeButton("No", null);
-            // Set the neutral button
-
-            builder.setNeutralButton("Cancel", null);
-            // Create the alert dialog
-
-            AlertDialog dialog = builder.create();
-            // Finally, display the alert dialog
-
-            dialog.show();
-
-            // Get the alert dialog buttons reference
-
-            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-            Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-
-            // Change the alert dialog buttons text and background color
-            positiveButton.setTextColor(Color.parseColor("#FF0B8B42"));
-
-            positiveButton.setBackgroundColor(Color.parseColor("#FFE1FCEA"));
-            negativeButton.setTextColor(Color.parseColor("#FFFF0400"));
-            negativeButton.setBackgroundColor(Color.parseColor("#FFFCB9B7"));
-            neutralButton.setTextColor(Color.parseColor("#FF1B5AAC"));
-            neutralButton.setBackgroundColor(Color.parseColor("#FFD9E9FF"));
-*/
-
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationView navigationView = binding.navView;
         if (navigationView != null) {
