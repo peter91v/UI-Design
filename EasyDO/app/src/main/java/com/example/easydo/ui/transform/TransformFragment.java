@@ -105,6 +105,7 @@ public class TransformFragment extends Fragment {
                     ResourcesCompat.getDrawable(holder.imageView.getResources(),
                     drawables.get(position),
                             null));*/
+
         }
     }
 
