@@ -20,6 +20,7 @@ import com.example.easydo.R;
 import com.example.easydo.databinding.FragmentTransformBinding;
 import com.example.easydo.databinding.ItemTransformBinding;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class TransformFragment extends Fragment {
 
     private TransformViewModel transformViewModel;
     private FragmentTransformBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         transformViewModel =
@@ -100,7 +100,7 @@ public class TransformFragment extends Fragment {
         public void onBindViewHolder(@NonNull TransformViewHolder holder, int position) {
             holder.checkbox.setText(getItem(position));
             holder.textView.setText(getItem(position));
-            holder.textView2.setText(getItem(position));
+            holder.textView2.setText(getItem(2));
             /*holder.imageView.setImageDrawable(
                     ResourcesCompat.getDrawable(holder.imageView.getResources(),
                     drawables.get(position),

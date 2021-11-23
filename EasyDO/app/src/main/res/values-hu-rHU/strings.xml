@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EasyDO</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Beállítások</string>
+
+    <string name="menu_transform">ToDo</string>
+    <string name="menu_reflow">Kész</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_settings">Beállítások</string>
+    <string name="save">Mentés</string>
+    <string name="abbrechen">Mégsem</string>
+    <string name="beschreibung">Leírás</string>
+    <string name="datum">Dátum</string>
+    <string name="name">Feladatnév</string>
+    <string name="language">Nyelv</string>
+    <string name="radiobutton1">Angol</string>
+    <string name="radiobutton2">Német</string>
+    <string name="radiobutton3">Magyar</string>
+    <string name="quit">Vissza</string>
+
+</resources>

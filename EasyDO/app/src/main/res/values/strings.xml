@@ -7,15 +7,24 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_transform">Transform</string>
-    <string name="menu_reflow">Reflow</string>
+    <string name="menu_transform">ToDo</string>
+    <string name="menu_reflow">Done</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_settings">Settings</string>
 
-    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
-    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
-        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book"
-    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="save">Save</string>
+    <string name="abbrechen">Cancel</string>
+    <string name="beschreibung">Description</string>
+    <string name="datum">Date</string>
+    <string name="name">Task title</string>
+    <string name="language">Language</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="radiobutton">RadioButton</string>
+    <string name="radiobutton1">English</string>
+    <string name="radiobutton2">German</string>
+    <string name="radiobutton3">Hungarian</string>
+    <string name="quit">Back</string>
 </resources>

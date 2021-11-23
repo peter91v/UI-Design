@@ -22,6 +22,12 @@
         android:name="com.example.easydo.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.example.easydo.Calendar"
+        android:label="Calendar"
+        tools:layout="@layout/fragment_calendar"
+        />
 
     <fragment
         android:id="@+id/nav_settings"

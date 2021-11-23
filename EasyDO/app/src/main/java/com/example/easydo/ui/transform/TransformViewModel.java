@@ -9,18 +9,23 @@ import java.util.List;
 
 public class TransformViewModel extends ViewModel {
 
-    private final MutableLiveData<List<String>> mTexts;
+    //private final MutableLiveData<List<String>> mTexts;
+    public static MutableLiveData<List<String>> arrayList;
 
     public TransformViewModel() {
-        mTexts = new MutableLiveData<>();
+        arrayList = new MutableLiveData<>();
         List<String> texts = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+       /* for (int i = 1; i <= 5; i++) {
             texts.add("This is item # " + i);
-        }
-        mTexts.setValue(texts);
-    }
+        }*/
+        arrayList.setValue(texts);
 
+    }
+    public LiveData<List<String>> getarray(){
+        MutableLiveData<List<String>> array = TransformViewModel.arrayList;
+        return array;
+    }
     public LiveData<List<String>> getTexts() {
-        return mTexts;
+        return arrayList;
     }
 }
