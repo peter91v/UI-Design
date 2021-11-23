@@ -22,5 +22,6 @@
     <string name="radiobutton2">Német</string>
     <string name="radiobutton3">Magyar</string>
     <string name="quit">Vissza</string>
+    <string name="location">Hely</string>
 
 </resources>

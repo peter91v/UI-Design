@@ -23,5 +23,6 @@
     <string name="radiobutton2">Deutsch</string>
     <string name="radiobutton3">Ungarisch</string>
     <string name="quit">Zurück</string>
+    <string name="location">Ort</string>
 
 </resources>
