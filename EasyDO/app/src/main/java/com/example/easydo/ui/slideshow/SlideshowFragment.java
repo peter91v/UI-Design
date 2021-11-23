@@ -1,6 +1,7 @@
 package com.example.easydo.ui.slideshow;
 
 import com.example.easydo.CalendarFragment;
+import com.example.easydo.TaskManager;
 import com.example.easydo.ui.transform.TransformViewModel;
 
 import android.app.DatePickerDialog;
@@ -34,8 +35,11 @@ public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
     private FragmentSlideshowBinding binding;
-    DatePickerDialog datePickerDialog;
-    EditText editText;
+    private DatePickerDialog datePickerDialog;
+    private EditText editText;
+
+    private TaskManager taskManager = new TaskManager();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
