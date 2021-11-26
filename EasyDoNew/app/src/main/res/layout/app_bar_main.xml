@@ -6,7 +6,7 @@
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
@@ -21,10 +21,6 @@
             app:popupTheme="@style/Theme.EasyDO.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <include
-        android:id="@+id/content_main"
-        layout="@layout/activity_main"/>
 
     <!-- This CoordinatorLayout is to dodge the BottomNavigationView when the Snackbar is shown -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -51,5 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_navigation" />
+        app:menu="@menu/bottom_navigation"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

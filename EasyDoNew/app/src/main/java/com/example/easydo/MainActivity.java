@@ -2,6 +2,7 @@ package com.example.easydo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Placeholder;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,13 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.easydo.dao.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
+    private FragmentManager fragmentManager;
     /***/
     private static final TaskManager taskManager = new TaskManager();
 
@@ -39,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         taskManager.addTask(t3);
 
         initRecyclerView();
+        FloatingActionButton addNewTask = findViewById(R.id.fab);
+        fragmentManager = getSupportFragmentManager();
+        addNewTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_main, new AddNewTask()).commit();
+            }
+        });
     }
 
     private void initRecyclerView(){
