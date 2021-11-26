@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.easydo.dao.Task;
 
@@ -16,7 +18,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    /***/
     private final TaskManager taskManager = new TaskManager();
+
+    /**AddFragment Objects*/
+    private Button saveButton = findViewById(R.id.button_save);
+    private Button cancleButton = findViewById(R.id.button_cancel);
+    private TextView taskTitleText = findViewById(R.id.edit_task_title);
+    private TextView taskDeadlineText = findViewById(R.id.edit_task_date);
+    private TextView taskLocationText = findViewById(R.id.edit_task_location);
+    private TextView taskDescriptionText = findViewById(R.id.edit_task_description);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,4 +70,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private Task createTask(){
+        try {
+            return new Task.TaskBuilder(taskTitleText.getText().toString())
+                    .withDeadline(taskDeadlineText.getText().toString(), "dd/MM/yyyy")
+                    .withLocation(taskLocationText.getText().toString())
+                    .withDescription(taskDescriptionText.getText().toString())
+                    .createTask();
+        }
+        catch(ParseException pe) {
+            Log.d(TAG, "createTask: Parse Exception");
+        }
+
+       return null;
+    }
+
 }
