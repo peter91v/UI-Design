@@ -1,21 +1,32 @@
 package com.example.easydo;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.easydo.dao.Task;
+import java.util.ArrayList;
 
 /**Adapts the listitem to match our tasklayout*/
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 {
     private static final String TAG = "RecyclerViewAdapter";
 
+    private ArrayList<Task> taskList = new ArrayList<>();
+    private Context taskContext;
 
+    public RecyclerViewAdapter(Context appContext, ArrayList<Task> tasks) {
+        taskList = tasks;
+        taskContext = appContext;
+    }
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
@@ -40,7 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     /**
@@ -65,6 +77,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: called");
+
+        //title
+        holder.taskTitle.setText(taskList.get(position).getTitle());
+        //date
+        holder.taskDeadline.setText(taskList.get(position).getDeadline("dd.MM.yyyy"));
+        //checkbox
+        holder.taskCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(position).getTitle());
+            }
+        });
+
+        holder.taskLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Item " + taskList.get(position).getTitle() + " should expand now");
+            }
+        });
 
     }
 
@@ -75,7 +107,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return taskList.size();
     }
 
 

@@ -1,7 +1,7 @@
 package com.example.easydo.dao;
-import android.location.Location;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Task implements Comparable<Task>
@@ -15,6 +15,9 @@ public class Task implements Comparable<Task>
     private Task(TaskBuilder builder) {
         title = builder.title;
         deadline = builder.deadline;
+
+
+
         location = builder.location;
         description = builder.description;
     }
@@ -27,12 +30,17 @@ public class Task implements Comparable<Task>
         this.title = title;
     }
 
-    public Date getDeadline() {
-        return deadline;
+    /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)*/
+    public String getDeadline(String dateFormat) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        return simpleDateFormat.format(deadline);
     }
 
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
+    /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
+     * @throws ParseException if date format could not be parsed*/
+    public void setDeadline(String deadline, String dateFormat) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+        this.deadline = format.parse(deadline);
     }
 
     public String getLocation() {
@@ -61,7 +69,7 @@ public class Task implements Comparable<Task>
 
     @Override
     public int compareTo(Task o) {
-        return this.getDeadline().compareTo(o.getDeadline());
+        return this.getDeadline("dd.MM.yyyy").compareTo(o.getDeadline("dd.MM.yyyy"));
     }
 
     public static class TaskBuilder {
@@ -75,8 +83,11 @@ public class Task implements Comparable<Task>
             this.title = title;
         }
 
-        public TaskBuilder withDeadline(Date deadline) {
-            this.deadline = deadline;
+        /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
+         * @throws ParseException if date format could not be parsed*/
+        public TaskBuilder withDeadline(String deadline, String dateFormat) throws ParseException {
+            SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+            this.deadline = format.parse(deadline);
             return this;
         }
 

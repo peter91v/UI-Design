@@ -7,16 +7,16 @@ import java.util.List;
 
 public class TaskManager {
 
-    private final List<Task> todoList = new ArrayList<>();
-    private final List<Task> doneList = new ArrayList<>();
+    private final ArrayList<Task> todoList = new ArrayList<>();
+    private final ArrayList<Task> doneList = new ArrayList<>();
 
     public TaskManager() {}
 
-    public List<Task> getTodoList() {
+    public ArrayList<Task> getTodoList() {
         return todoList;
     }
 
-    public List<Task> getDoneList() {
+    public ArrayList<Task> getDoneList() {
         return doneList;
     }
 
