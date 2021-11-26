@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/todo"
+            android:icon="@android:drawable/btn_dialog"
+            android:title="Todo" />
+        <item
+            android:id="@+id/done"
+            android:icon="@android:drawable/btn_dialog"
+            android:title="Done" />
+
+    </group>
+</menu>

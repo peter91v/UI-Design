@@ -9,5 +9,10 @@
     <string name="date">Dátum</string>
     <string name="task_title">Feladatnév</string>
     <string name="add_new_task">Új feledat hozzáadás</string>
+    <string name="language">Nyelv</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="english">Angol</string>
+    <string name="german">Német</string>
+    <string name="hungarian">Magyar</string>
 
 </resources>
