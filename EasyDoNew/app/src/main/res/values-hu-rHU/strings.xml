@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">easyDo</string>
+
+    <string name="cancel">Mégsem</string>
+    <string name="save">Mentés</string>
+    <string name="description">Leírás</string>
+    <string name="location">Hely</string>
+    <string name="date">Dátum</string>
+    <string name="task_title">Feladatnév</string>
+    <string name="add_new_task">Új feledat hozzáadás</string>
+
+</resources>

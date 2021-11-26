@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">easyDo</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="date">Date</string>
+    <string name="task_title">Task title</string>
+    <string name="add_new_task">Add new task</string>
 </resources>

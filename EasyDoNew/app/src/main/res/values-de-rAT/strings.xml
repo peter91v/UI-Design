@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">easyDo</string>
+
+    <string name="cancel">Abbrechen</string>
+    <string name="save">Speicher</string>
+    <string name="description">Beschreibung</string>
+    <string name="location">Ort</string>
+    <string name="date">Datum</string>
+    <string name="task_title">Name der Aufgabe</string>
+    <string name="add_new_task">Aufgabe hinzufügen</string>
+</resources>
