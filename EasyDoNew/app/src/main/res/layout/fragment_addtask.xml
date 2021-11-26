@@ -6,6 +6,7 @@
     android:columnCount="1"
     android:background="@android:color/darker_gray"
     android:id="@+id/grid_layout_add_task"
+    android:translationZ="1dp"
     >
     <TextView
         android:text="@string/add_new_task"

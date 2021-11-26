@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
 
@@ -40,23 +41,21 @@ public class MainActivity extends AppCompatActivity {
         taskManager.addTask(t2);
         taskManager.addTask(t3);
 
-        initRecyclerView();
-        FloatingActionButton addNewTask = findViewById(R.id.fab);
+
         fragmentManager = getSupportFragmentManager();
+        //fill the fragment with the taskrecycler
+        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler()).commit();
+
+        FloatingActionButton addNewTask = findViewById(R.id.fab);
         addNewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_main, new AddNewTask()).commit();
+                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTask()).commit();
             }
         });
     }
 
-    private void initRecyclerView(){
-        Log.d(TAG, "Initializing the RecyclerView");
-        RecyclerView recyclerView = findViewById(R.id.taskRecycler);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(this, taskManager.getTodoList());
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    public static TaskManager getTaskManager() {
+        return taskManager;
     }
-
 }

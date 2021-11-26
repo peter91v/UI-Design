@@ -13,6 +13,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.Task;
 
@@ -26,7 +27,6 @@ public class AddNewTask extends Fragment {
             editTextDescription;
     private DatePickerDialog datePickerDialog;
     private Button buttonSave, buttonCancel;
-    private TaskManager taskManager;
 
     @Nullable
     @Override
@@ -60,7 +60,8 @@ public class AddNewTask extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskManager.addTask(createTask());
+                MainActivity.getTaskManager().addTask(createTask());
+                destroyFragment();
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +71,17 @@ public class AddNewTask extends Fragment {
                 editTextDate.setText("");
                 editTextLocation.setText("");
                 editTextDescription.setText("");
+                destroyFragment();
             }
         });
         return view;
+    }
+
+    private void destroyFragment()
+    {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler()).commit();
+        fragmentManager.beginTransaction().remove(this).commit();
     }
 
     private Task createTask() throws RuntimeException{
@@ -85,7 +94,7 @@ public class AddNewTask extends Fragment {
         if (!title.isEmpty())
             newTask = new Task.TaskBuilder(title).createTask();
         else
-            throw new RuntimeException("@String/no_title");
+            throw new RuntimeException(getResources().getString(R.string.no_title));
         if(!deadline.isEmpty())
             newTask.setDeadline(deadline, "dd.MM.yyyy");
         if(!location.isEmpty())

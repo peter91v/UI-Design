@@ -34,6 +34,8 @@ public class Task implements Comparable<Task>
 
     /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)*/
     public String getDeadline(String dateFormat) {
+        if (deadline == null)
+            return "";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         return simpleDateFormat.format(deadline);
     }
@@ -76,7 +78,12 @@ public class Task implements Comparable<Task>
 
     @Override
     public int compareTo(Task o) {
-        return this.getDeadline("dd.MM.yyyy").compareTo(o.getDeadline("dd.MM.yyyy"));
+        if(this.deadline == null)
+            return 1;
+        else if(o.deadline == null)
+            return -1;
+        else
+            return this.deadline.compareTo(o.deadline);
     }
 
     public static class TaskBuilder {
