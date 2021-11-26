@@ -13,4 +13,7 @@
     <string name="english">English</string>
     <string name="german">German</string>
     <string name="hungarian">Hungarian</string>
+
+    <!--Runtime Error Texts for toasts-->
+    <string name="no_title">No title given</string>
 </resources>

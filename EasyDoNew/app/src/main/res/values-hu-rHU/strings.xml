@@ -15,4 +15,6 @@
     <string name="german">Német</string>
     <string name="hungarian">Magyar</string>
 
+    <!--Runtime Error Texts for toasts-->
+    <string name="no_title">Bozmek</string>
 </resources>

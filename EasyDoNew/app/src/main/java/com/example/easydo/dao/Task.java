@@ -1,5 +1,7 @@
 package com.example.easydo.dao;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,10 +39,15 @@ public class Task implements Comparable<Task>
     }
 
     /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
-     * @throws ParseException if date format could not be parsed*/
-    public void setDeadline(String deadline, String dateFormat) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat(dateFormat);
-        this.deadline = format.parse(deadline);
+     * @apiNote if date format could not be parsed nothing will be set*/
+    public void setDeadline(String deadline, String dateFormat) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+            this.deadline = format.parse(deadline);
+        }
+        catch (ParseException pe) {
+            Log.d("Task.java", "withDeadline: ParseException");
+        }
     }
 
     public String getLocation() {
@@ -84,11 +91,17 @@ public class Task implements Comparable<Task>
         }
 
         /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
-         * @throws ParseException if date format could not be parsed*/
-        public TaskBuilder withDeadline(String deadline, String dateFormat) throws ParseException {
-            SimpleDateFormat format = new SimpleDateFormat(dateFormat);
-            this.deadline = format.parse(deadline);
-            return this;
+         * @return  null if date format could not be parsed*/
+        public TaskBuilder withDeadline(String deadline, String dateFormat){
+            try {
+                SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+                this.deadline = format.parse(deadline);
+                return this;
+            }
+            catch (ParseException pe) {
+                Log.d("Task.java", "withDeadline: ParseException");
+            }
+            return null;
         }
 
         public TaskBuilder withLocation(String location) {

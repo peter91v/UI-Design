@@ -31,8 +31,6 @@ public class AddNewTask extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        taskManager = new TaskManager();
-
         View view = inflater.inflate(R.layout.fragment_addtask, container,false);
         editTextTitle = view.findViewById(R.id.edit_task_title);
         editTextDate = view.findViewById(R.id.edit_task_date);
@@ -46,15 +44,15 @@ public class AddNewTask extends Fragment {
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int mounth = calendar.get(Calendar.MONTH);
+                int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
                 Context context1 = getContext();
                 datePickerDialog = new DatePickerDialog(context1, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int mounth, int day) {
-                        editTextDate.setText(day + "/" + (mounth + 1) + "/" + year);
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        editTextDate.setText(day + "." + (month + 1) + "." + year);
                     }
-                }, year, mounth, day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
@@ -62,16 +60,39 @@ public class AddNewTask extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           /* Task x = new Task.TaskBuilder(editTextTitle.getText().toString()).withDeadline(editTextDate.getText())
-                    .withLocation(editTextLocation.getText()).withDescription(editTextDescription.getText()).createTask();*/
+                taskManager.addTask(createTask());
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                editTextTitle.setText("");
+                editTextDate.setText("");
+                editTextLocation.setText("");
+                editTextDescription.setText("");
             }
         });
         return view;
+    }
+
+    private Task createTask() throws RuntimeException{
+        String title = editTextTitle.getText().toString();
+        String deadline = editTextDate.getText().toString();
+        String location = editTextLocation.getText().toString();
+        String description = editTextDescription.getText().toString();
+        Task newTask;
+
+        if (!title.isEmpty())
+            newTask = new Task.TaskBuilder(title).createTask();
+        else
+            throw new RuntimeException("@String/no_title");
+        if(!deadline.isEmpty())
+            newTask.setDeadline(deadline, "dd.MM.yyyy");
+        if(!location.isEmpty())
+            newTask.setLocation(location);
+        if(!description.isEmpty())
+            newTask.setDescription(description);
+
+        return newTask;
     }
 }

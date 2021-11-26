@@ -3,15 +3,18 @@
     <string name="app_name">easyDo</string>
 
     <string name="cancel">Abbrechen</string>
-    <string name="save">Speicher</string>
+    <string name="save">Speichern</string>
     <string name="description">Beschreibung</string>
     <string name="location">Ort</string>
     <string name="date">Datum</string>
-    <string name="task_title">Name der Aufgabe</string>
+    <string name="task_title">Aufgabentitel</string>
     <string name="add_new_task">Aufgabe hinzufügen</string>
     <string name="language">Sprache</string>
     <string name="dark_mode">Dark mode</string>
     <string name="english">Englisch</string>
     <string name="german">Deutsch</string>
     <string name="hungarian">Ungarisch</string>
+
+    <!--Runtime Error Texts for toasts-->
+    <string name="no_title">Kein Titel angegeben</string>
 </resources>
