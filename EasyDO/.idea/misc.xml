@@ -30,10 +30,17 @@
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/layout/nav_header_main.xml" value="0.5369791666666667" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/bottom_navigation.xml" value="0.56875" />
         <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/navigation_drawer.xml" value="0.9114583333333334" />
-        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/overflow.xml" value="0.9114583333333334" />  
+        <entry key="..\:/FH/Semester5/UI-Labor/Projects/ui-design/UI-Design/EasyDO/app/src/main/res/menu/overflow.xml" value="0.9114583333333334" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout-w1240dp/activity_main.xml" value="0.3450468540829987" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout-w1240dp/app_bar_main.xml" value="0.3450468540829987" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout-w600dp/activity_main.xml" value="0.45458553791887124" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout-w600dp/fragment_transform.xml" value="0.45458553791887124" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/activity_main.xml" value="0.3038949275362319" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/app_bar_main.xml" value="0.4673913043478261" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/fragment_reflow.xml" value="0.4673913043478261" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/fragment_settings.xml" value="0.4673913043478261" />
+        <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/fragment_slideshow.xml" value="0.4673913043478261" />
         <entry key="..\:/FH/UI/Android/EasyDO/app/src/main/res/layout/fragment_transform.xml" value="0.4805253623188406" />
-
-
       </map>
     </option>
   </component>
