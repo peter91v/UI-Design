@@ -1,5 +1,6 @@
 package com.example.easydo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,6 @@ public class Settings extends Fragment {
 
             }
         });
-
-
         return settingsView;
     }
 }
