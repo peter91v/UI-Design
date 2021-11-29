@@ -11,9 +11,9 @@
         android:id="@+id/taskCheckBox"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:textColorHighlight="@color/white"
         android:background="?android:attr/listChoiceIndicatorMultiple"
-        android:button="@null" />
+        android:button="@null"
+        android:textColorHighlight="@color/white" />
 
     <TextView
         android:id="@+id/taskTitle"
@@ -61,8 +61,8 @@
         android:layout_below="@id/taskTitle"
         android:layout_toEndOf="@id/taskLocation"
         android:gravity="center_vertical"
-        android:textStyle="bold"
-        android:text="MUSTERHAUSEN 69" />
+        android:text="MUSTERHAUSEN 69"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/taskDescription"

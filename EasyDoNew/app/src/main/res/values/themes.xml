@@ -8,7 +8,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/bluegrey900</item>
         <item name="colorSecondaryVariant">@color/bluegrey900</item>
-        <item name="colorOnSecondary">@color/bluegrey600</item>
+        <item name="colorOnSecondary">@color/white</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textColorHint">@color/textColor</item>
 

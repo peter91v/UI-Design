@@ -21,10 +21,10 @@
     <string name="hungarian">Magyar</string>
 
     <!--Navigation-->
-    <string name="todo">Vé éres Vósz</string>
-    <string name="done">Bózmék</string>
-    <string name="settings">Hági Vágí</string>
+    <string name="todo">Feladatok</string>
+    <string name="done">Kész feladatok</string>
+    <string name="settings">Beállítások</string>
 
     <!--Runtime Error Texts for toasts-->
-    <string name="no_title">Bózmék</string>
+    <string name="no_title">Feladatnév nincs megadva!</string>
 </resources>
