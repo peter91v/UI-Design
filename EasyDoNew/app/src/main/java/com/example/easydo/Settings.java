@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,30 +37,33 @@ public class Settings extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new LanguageSetting()).addToBackStack("Language").commit();
+                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new LanguageSetting()).addToBackStack("Language").addToBackStack("language view").commit();
 
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
+      /*  backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = getParentFragment();
                 getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, fragment).commit();
             }
 
-        });
+        });*/
+        Context context = (MainActivity)getContext();
+        assert context != null;
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
         UiModeManager uiMode = MainActivity.getUiModeManager();
         darkmodeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(darkmodeSwitch.isChecked()){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-                }else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                if(darkmodeSwitch.isChecked()) {
+                    //((MainActivity)getActivity()).setNightMode(true);
+                } else{
+                  //  ((MainActivity)getActivity()).setNightMode(true);
 
                 }
-                Log.v("Switch State=", ""+isChecked);
+
             }
             });
         return settingsView;

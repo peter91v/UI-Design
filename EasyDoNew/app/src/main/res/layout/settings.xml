@@ -12,6 +12,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical"
         android:background="@color/bachgroungColor"
+
         >
     <TextView
         android:id="@+id/language"
@@ -30,7 +31,6 @@
         android:layout_marginStart="10dp"
         android:text="@string/dark_mode"
         android:padding="5dp"
-
         tools:ignore="UseSwitchCompatOrMaterialXml" />
     </LinearLayout>
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,8 +61,19 @@ public class AddNewTask extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.getTaskManager().addTask(createTask(), true);
-                destroyFragment();
+                try {
+                    MainActivity.getTaskManager().addTask(createTask(), true);
+                    destroyFragment();
+
+                }catch (Exception e)
+                {
+                    CharSequence text = e.getMessage();
+                    int duration = Toast.LENGTH_LONG;
+                    Context context = getContext();
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
         buttonCancel.setOnClickListener(new View.OnClickListener() {
