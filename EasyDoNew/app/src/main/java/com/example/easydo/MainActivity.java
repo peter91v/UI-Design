@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.UiModeManager;
+import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,7 +28,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static UiModeManager uiModeManager;
-
     private static final String TAG = "MainActivity";
     private FragmentManager fragmentManager;
     /***/
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
         TextView toolbar = findViewById(R.id.toolbartitle);
-
 
         //placeholder Tasks
         Task t1 = new Task.TaskBuilder("Johannes mal schustern").withDeadline("26.11.2021", "dd.MM.yyyy").createTask();
@@ -102,14 +102,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void setLocale (String lang) {
+    public void setLocale (Context context, String lang) {
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
         configuration.locale = locale;
-        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
-        //recreate();
-        recreate();
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
     public static TaskManager getTaskManager() {
         return taskManager;
