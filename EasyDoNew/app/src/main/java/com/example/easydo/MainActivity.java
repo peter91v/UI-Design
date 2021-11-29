@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                toolbar.setText(getResources().getString(R.string.todo));
                 addNewTask.setVisibility(View.VISIBLE);
                 addNewTask.setEnabled(true);
                 fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getTodoList())).commit();
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                toolbar.setText(getResources().getString(R.string.done));
                 addNewTask.setVisibility(View.INVISIBLE);
                 addNewTask.setEnabled(false);
                 fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getDoneList())).commit();
@@ -112,5 +114,7 @@ public class MainActivity extends AppCompatActivity {
     public static TaskManager getTaskManager() {
         return taskManager;
     }
-    public static UiModeManager getUiModeManager() {return uiModeManager;}
+    public static UiModeManager getUiModeManager() {
+        return uiModeManager;
+    }
 }
