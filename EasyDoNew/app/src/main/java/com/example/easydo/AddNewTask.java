@@ -28,6 +28,14 @@ public class AddNewTask extends Fragment {
             editTextDescription;
     private DatePickerDialog datePickerDialog;
     private Button buttonSave, buttonCancel;
+    private Task taskData = new Task.TaskBuilder("").createTask();
+    private boolean editMode = false;
+
+    public AddNewTask() {}
+    public AddNewTask(Task newTask) {
+        taskData = newTask;
+        editMode = true;
+    }
 
     @Nullable
     @Override
@@ -39,6 +47,11 @@ public class AddNewTask extends Fragment {
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
+
+        editTextTitle.setText(taskData.getTitle());
+        editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
+        editTextLocation.setText(taskData.getLocation());
+        editTextDescription.setText(taskData.getDescription());
 
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +96,8 @@ public class AddNewTask extends Fragment {
                 editTextDate.setText("");
                 editTextLocation.setText("");
                 editTextDescription.setText("");
+                if(editMode)
+                    MainActivity.getTaskManager().addTask(taskData, true);
                 destroyFragment();
             }
         });

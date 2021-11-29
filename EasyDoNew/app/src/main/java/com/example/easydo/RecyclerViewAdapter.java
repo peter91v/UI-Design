@@ -5,14 +5,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.easydo.dao.Task;
 import java.util.ArrayList;
@@ -144,7 +148,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FragmentManager fragmentManager = ((AppCompatActivity)taskContext).getSupportFragmentManager();
+                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTask(taskList.get(position))).addToBackStack("edit task").commit();
+                deleteTaskListEntry(position);
             }
         });
 
@@ -155,14 +161,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskList.remove(holder.getAdapterPosition());
-                notifyItemRemoved(position);
+                deleteTaskListEntry(position);
             }
         });
 
         if(isExpanded)
             oldExpandedItem = expandedItem;
     }
+
+
+    private void deleteTaskListEntry(int position){
+        taskList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -173,6 +185,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return taskList.size();
     }
+
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder
