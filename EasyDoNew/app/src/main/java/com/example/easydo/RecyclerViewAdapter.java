@@ -90,20 +90,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(position).getTitle() + " Position: " + position);
+                Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(holder.getAdapterPosition()).getTitle() + " Position: " + holder.getAdapterPosition());
 
-                Task completedTask = taskList.get(position);
-                if(isChecked && !completedTask.isDone()){
-                    MainActivity.getTaskManager().deleteTask(position, true);
+                Task completedTask = taskList.get(holder.getAdapterPosition());
+                if(isChecked){
                     completedTask.setDone(true);
                     MainActivity.getTaskManager().addTask(completedTask, false);
+                    MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), true);
+
                 }
                 else {
-                    MainActivity.getTaskManager().deleteTask(position, false);
                     completedTask.setDone(false);
                     MainActivity.getTaskManager().addTask(completedTask, true);
+                    MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), false);
                 }
-                notifyItemRemoved(position);
+                notifyItemRemoved(holder.getAdapterPosition());
             }
         });
 
