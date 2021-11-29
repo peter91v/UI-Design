@@ -131,13 +131,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //location
         holder.taskLocation.setText(taskList.get(position).getLocation());
-        holder.taskLocation.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskLocation.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE: View.GONE);
         holder.taskLocation.setActivated(isExpanded);
-        holder.taskLocationIcon.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskLocationIcon.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE: View.GONE);
 
         //description
         holder.taskDescription.setText(taskList.get(position).getDescription());
-        holder.taskDescription.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskDescription.setVisibility(isExpanded && !taskList.get(position).getDescription().isEmpty() ? View.VISIBLE: View.GONE);
         holder.taskDescription.setActivated(isExpanded);
 
         //edit Button
