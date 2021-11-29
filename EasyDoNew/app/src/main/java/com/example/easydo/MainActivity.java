@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     toolbar.setText(getResources().getString(R.string.todo));
-                    addNewTask.setVisibility(View.GONE);
+                    addNewTask.setVisibility(View.VISIBLE);
                     addNewTask.setEnabled(true);
                     fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getTodoList())).addToBackStack("todo view").commit();
                 }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             if (addNewTask.getVisibility() == View.INVISIBLE) {
-                addNewTask.setVisibility(View.GONE);
+                addNewTask.setVisibility(View.VISIBLE);
             }
             ImageButton settingsButton = findViewById(R.id.settings_button);
             ImageButton backButton = findViewById(R.id.backButton);
