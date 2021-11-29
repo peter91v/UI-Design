@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical"
+        android:background="@color/bachgroungColor"
         >
     <TextView
         android:id="@+id/language"
@@ -22,6 +23,7 @@
         android:padding="5dp"
         />
     <Switch
+        android:id="@+id/darkmodeSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22sp"

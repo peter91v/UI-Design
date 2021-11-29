@@ -10,22 +10,30 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
+        android:background="@color/white"
+
         >
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
+                android:id="@+id/redio_eng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:text="@string/english"/>
             <RadioButton
+                android:id="@+id/redio_ger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:text="@string/german"
                 />
             <RadioButton
+                android:id="@+id/redio_hun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:text="@string/hungarian"/>
         </RadioGroup>
     </LinearLayout>

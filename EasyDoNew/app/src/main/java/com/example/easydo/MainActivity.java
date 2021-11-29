@@ -1,16 +1,20 @@
 package com.example.easydo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.Placeholder;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.UiModeManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.easydo.dao.Task;
@@ -18,8 +22,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private static UiModeManager uiModeManager;
 
     private static final String TAG = "MainActivity";
     private FragmentManager fragmentManager;
@@ -32,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+        uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+        TextView toolbar = findViewById(R.id.toolbartitle);
 
 
         //placeholder Tasks
@@ -78,10 +86,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton settingsButton = findViewById(R.id.settings_button);
+        ImageButton backButton = findViewById(R.id.backButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("Settings").commit();
+                toolbar.setText(getResources().getString(R.string.settings));
+                addNewTask.setVisibility(View.INVISIBLE);
+                backButton.setVisibility(View.VISIBLE);
+            }
+        });
+
 
     }
-
+    public void setLocale (String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+        //recreate();
+        recreate();
+    }
     public static TaskManager getTaskManager() {
         return taskManager;
     }
+    public static UiModeManager getUiModeManager() {return uiModeManager;}
 }
