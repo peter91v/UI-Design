@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Task> taskList = new ArrayList<>();
     private Context taskContext;
+    private int expandedItem = -1;
+    private int oldExpandedItem = -1;
 
     public RecyclerViewAdapter(Context appContext, ArrayList<Task> tasks) {
         taskList = tasks;
@@ -104,17 +108,60 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     MainActivity.getTaskManager().addTask(completedTask, true);
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), false);
                 }
-                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRemoved(position);
             }
         });
+
+
+        //expand mechanism
+        final boolean isExpanded = position == expandedItem;
 
         holder.taskLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Item " + taskList.get(position).getTitle() + " should expand now");
+
+                expandedItem = isExpanded ? -1 : position;
+                notifyItemChanged(oldExpandedItem);
+                notifyItemChanged(position);
             }
         });
 
+        //location
+        holder.taskLocation.setText(taskList.get(position).getLocation());
+        holder.taskLocation.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskLocation.setActivated(isExpanded);
+        holder.taskLocationIcon.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+
+        //description
+        holder.taskDescription.setText(taskList.get(position).getDescription());
+        holder.taskDescription.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskDescription.setActivated(isExpanded);
+
+        //edit Button
+        holder.taskEdit.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskEdit.setActivated(isExpanded);
+        holder.taskEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        //delete Button
+        holder.taskDelete.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskDelete.setActivated(isExpanded);
+        holder.taskDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(position);
+            }
+        });
+
+        if(isExpanded)
+            oldExpandedItem = expandedItem;
     }
 
     /**
@@ -130,10 +177,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
+        RelativeLayout taskLayout;
         CheckBox taskCheckbox;
         TextView taskTitle;
         TextView taskDeadline;
-        RelativeLayout taskLayout;
+        ImageView taskLocationIcon;
+        TextView taskLocation;
+        TextView taskDescription;
+        ImageButton taskEdit;
+        ImageButton taskDelete;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -142,10 +194,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskTitle = itemView.findViewById(R.id.taskTitle);
             taskDeadline = itemView.findViewById(R.id.taskDeadline);
             taskLayout = itemView.findViewById(R.id.taskParent);
+            taskLocationIcon = itemView.findViewById(R.id.taskLocation);
+            taskLocation = itemView.findViewById(R.id.taskLocationText);
+            taskDescription = itemView.findViewById(R.id.taskDescription);
+            taskEdit = itemView.findViewById(R.id.taskEdit);
+            taskDelete = itemView.findViewById(R.id.taskDelete);
         }
-
-
-
     }
-
 }

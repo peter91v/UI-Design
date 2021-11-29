@@ -5,52 +5,93 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_marginBottom="3dp">
-    
-    
+
+
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/taskCheckBox" />
-
-
+        android:id="@+id/taskCheckBox"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="?android:attr/listChoiceIndicatorMultiple"
+        android:button="@null" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/taskTitle"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
         android:layout_toEndOf="@id/taskCheckBox"
-        android:text="TESTTEXT"
-        android:visibility="visible" />
+        android:layout_toStartOf="@id/taskCalender"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:text="TESTTEXT" />
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/taskCalender"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_toStartOf="@+id/taskDeadline"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_calendar_alt_solid"
-        android:contentDescription="calenderIcon" />
+        android:contentDescription="calenderIcon"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:src="@drawable/ic_calendar_alt_solid" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/taskDeadline"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
         android:layout_alignParentEnd="true"
-
-        android:text="99.99.9999"
-        />
+        android:textStyle="bold"
+        android:text="99.99.9999" />
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_toStartOf="@+id/taskDeadline"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_calendar_alt_solid"
-        android:contentDescription="calenderIcon" />
+        android:id="@+id/taskLocation"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/taskCheckBox"
+        android:contentDescription="mapMarker"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:src="@drawable/ic_map_marked_alt_solid" />
+
+    <TextView
+        android:id="@+id/taskLocationText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/taskTitle"
+        android:layout_toEndOf="@id/taskLocation"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:text="MUSTERHAUSEN 69" />
+
+    <TextView
+        android:id="@+id/taskDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskLocation"
+        android:text="TEST DESKRIPTION LALALALALAALAL"/>
+
+    <ImageButton
+        android:id="@+id/taskEdit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/taskDescription"
+        android:src="@drawable/ic_edit_solid" />
+
+    <ImageButton
+        android:id="@+id/taskDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/taskDescription"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_trash_alt_solid" />
 
 
-    
+
+
 </RelativeLayout>
