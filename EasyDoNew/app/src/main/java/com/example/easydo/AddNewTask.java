@@ -60,7 +60,7 @@ public class AddNewTask extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.getTaskManager().addTask(createTask());
+                MainActivity.getTaskManager().addTask(createTask(), true);
                 destroyFragment();
             }
         });
@@ -80,7 +80,7 @@ public class AddNewTask extends Fragment {
     private void destroyFragment()
     {
         FragmentManager fragmentManager = getParentFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler()).commit();
+        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(MainActivity.getTaskManager().getTodoList())).commit();
         fragmentManager.beginTransaction().remove(this).commit();
     }
 

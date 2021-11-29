@@ -84,10 +84,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //date
         holder.taskDeadline.setText(taskList.get(position).getDeadline("dd.MM.yyyy"));
         //checkbox
+        if(taskList.get(position).isDone())
+            holder.taskCheckbox.setChecked(true);
+
         holder.taskCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(position).getTitle());
+                Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(position).getTitle() + " Position: " + position);
+
+                Task completedTask = taskList.get(position);
+                if(isChecked && !completedTask.isDone()){
+                    MainActivity.getTaskManager().deleteTask(position, true);
+                    completedTask.setDone(true);
+                    MainActivity.getTaskManager().addTask(completedTask, false);
+                }
+                else {
+                    MainActivity.getTaskManager().deleteTask(position, false);
+                    completedTask.setDone(false);
+                    MainActivity.getTaskManager().addTask(completedTask, true);
+                }
+                notifyItemRemoved(position);
             }
         });
 

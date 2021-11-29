@@ -3,7 +3,6 @@ package com.example.easydo;
 import com.example.easydo.dao.Task;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class TaskManager {
 
@@ -28,9 +27,16 @@ public class TaskManager {
             return doneList.get(index);
     }
 
-    public void addTask(Task todo){
-        todoList.add(todo);
-        sortTasks(true);
+    public void addTask(Task todo, boolean onTodoList){
+        if(onTodoList){
+            todoList.add(todo);
+            sortTasks(true);
+        }
+        else{
+            doneList.add(todo);
+            sortTasks(false);
+        }
+
     }
 
     public void deleteTask(int id, boolean onTodoList) {

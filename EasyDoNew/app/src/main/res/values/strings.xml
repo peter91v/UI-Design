@@ -1,18 +1,28 @@
 <resources>
     <string name="app_name">easyDo</string>
-    
+
+    <!--Add/edit Task menu-->
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="description">Description</string>
     <string name="location">Location</string>
     <string name="date">Date</string>
     <string name="task_title">Task title</string>
-    <string name="add_new_task">Add new task</string>
+    <string name="add_new_task">Task</string>
+
+    <!--Settings Menu-->
     <string name="language">Language</string>
     <string name="dark_mode">Dark mode</string>
+
+    <!--Language Menu-->
     <string name="english">English</string>
     <string name="german">German</string>
     <string name="hungarian">Hungarian</string>
+
+    <!--Navigation-->
+    <string name="todo">ToDo</string>
+    <string name="done">Done</string>
+    <string name="settings">Settings</string>
 
     <!--Runtime Error Texts for toasts-->
     <string name="no_title">No title given</string>
