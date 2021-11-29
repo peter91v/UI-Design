@@ -28,19 +28,16 @@ public class LanguageSetting extends Fragment {
             ((MainActivity)getActivity()).setLocale((MainActivity)getContext(),"en");
             radioButtonEng.setChecked(true);
            getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
-
        });
         radioButtonGer.setOnClickListener(set ->{
             ((MainActivity)getActivity()).setLocale((MainActivity)getContext(),"de");
             radioButtonGer.setChecked(true);
             getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
-
         });
         radioButtonHun.setOnClickListener(set ->{
             ((MainActivity)getActivity()).setLocale((MainActivity)getContext(), "hu");
             radioButtonHun.setChecked(true);
             getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
-
         });
         return viewLanguageSetting;
     }

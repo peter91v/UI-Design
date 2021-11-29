@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private static Context contextMain;
     private static boolean onTodoList = true;
+    private static boolean isSettings = true;
     /***/
     private static final TaskManager taskManager = new TaskManager();
 
@@ -38,17 +39,6 @@ public class MainActivity extends AppCompatActivity {
             uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
             TextView toolbar = findViewById(R.id.toolbartitle);
             contextMain = getApplicationContext();
-
-
-            //placeholder Tasks
-            Task t1 = new Task.TaskBuilder("Johannes mal schustern").withDeadline("26.11.2021", "dd.MM.yyyy").createTask();
-            Task t2 = new Task.TaskBuilder("Mit Peter vargan").withDeadline("31.12.2021", "dd.MM.yyyy").createTask();
-            Task t3 = new Task.TaskBuilder("Flo richtig hinterbergern").withDeadline("19.01.2022", "dd.MM.yyyy").createTask();
-
-            //taskManager.addTask(t1, true);
-            //taskManager.addTask(t2, true);
-            //taskManager.addTask(t3, true);
-
 
 
             fragmentManager = getSupportFragmentManager();
@@ -71,6 +61,37 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+
+
+            ImageButton settingsButton = findViewById(R.id.settings_button);
+
+            settingsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isSettings){
+                        settingsButton.setImageResource(R.drawable.ic_arrow_left_solid);
+                        fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("Settings").addToBackStack("settings view").commit();
+                        toolbar.setText(getResources().getString(R.string.settings));
+                        addNewTask.setVisibility(View.GONE);
+                        addNewTask.setEnabled(false);
+                        isSettings = false;
+                    }
+                    else{
+                        addNewTask.setVisibility(View.VISIBLE);
+                        addNewTask.setEnabled(true);
+                        settingsButton.setImageResource(R.drawable.ic_settings_black);
+                        isSettings = true;
+                        if(onTodoList){
+                            toolbar.setText(getResources().getString(R.string.todo));
+                            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).addToBackStack("todo view").commit();
+                        }else{
+                            toolbar.setText(getResources().getString(R.string.done));
+                            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("todo view").commit();
+                        }
+                    }
+                }
+            });
+
             //navigation
             BottomNavigationItemView todoView = findViewById(R.id.nav_todo);
             todoView.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     onTodoList = true;
+                    isSettings = true;
+                    settingsButton.setImageResource(R.drawable.ic_settings_black);
                     toolbar.setText(getResources().getString(R.string.todo));
                     addNewTask.setVisibility(View.VISIBLE);
                     addNewTask.setEnabled(true);
@@ -90,24 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     onTodoList = false;
+                    isSettings = true;
+                    settingsButton.setImageResource(R.drawable.ic_settings_black);
                     toolbar.setText(getResources().getString(R.string.done));
                     addNewTask.setVisibility(View.GONE);
                     addNewTask.setEnabled(false);
                     fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("done view").commit();
                 }
             });
-            if (addNewTask.getVisibility() == View.GONE) {
-                addNewTask.setVisibility(View.VISIBLE);
-            }
-            ImageButton settingsButton = findViewById(R.id.settings_button);
-            settingsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("Settings").addToBackStack("settings view").commit();
-                    toolbar.setText(getResources().getString(R.string.settings));
-                    addNewTask.setVisibility(View.INVISIBLE);
-                }
-            });
+
         }catch (Exception e){
             CharSequence text = e.getMessage();
             int duration = Toast.LENGTH_LONG;

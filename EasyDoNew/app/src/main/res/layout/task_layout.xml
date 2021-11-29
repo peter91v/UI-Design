@@ -75,10 +75,10 @@
         android:id="@+id/taskEdit"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_below="@id/taskDescription"
+        android:background="@android:color/transparent"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        android:background="@android:color/transparent"
-        android:layout_below="@id/taskDescription"
         android:src="@drawable/ic_edit_solid" />
 
     <ImageButton
