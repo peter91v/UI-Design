@@ -14,17 +14,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-
-            android:background="@android:color/transparent"
-            android:visibility="invisible"
-            />
         <TextView
             android:id="@+id/toolbartitle"
             android:layout_width="wrap_content"
@@ -32,6 +21,9 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
+            android:textColor="@color/textColor"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:text="ccc"/>
         <ImageButton
             android:id="@+id/settings_button"
@@ -46,30 +38,35 @@
     </LinearLayout>
 
     <!-- This CoordinatorLayout is to dodge the BottomNavigationView when the Snackbar is shown -->
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/add_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
-        android:background="@android:color/transparent"
-        >
+
+        android:background="@android:color/transparent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:backgroundTint="@android:color/holo_green_dark"
             android:layout_margin="15dp"
+            android:backgroundTint="@android:color/holo_green_dark"
 
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            app:srcCompat="@android:drawable/ic_input_add" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
+        app:itemIconTint="@color/textColor"
+        app:itemTextColor="@color/textColor"
         app:menu="@menu/bottom_navigation"
+        android:background="@color/bluegrey900"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

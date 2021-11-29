@@ -11,6 +11,7 @@
         android:id="@+id/taskCheckBox"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:textColorHighlight="@color/white"
         android:background="?android:attr/listChoiceIndicatorMultiple"
         android:button="@null" />
 
@@ -18,11 +19,11 @@
         android:id="@+id/taskTitle"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_toEndOf="@id/taskCheckBox"
         android:layout_toStartOf="@id/taskCalender"
+        android:layout_toEndOf="@id/taskCheckBox"
         android:gravity="center_vertical"
-        android:textStyle="bold"
-        android:text="TESTTEXT" />
+        android:text="TESTTEXT"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/taskCalender"

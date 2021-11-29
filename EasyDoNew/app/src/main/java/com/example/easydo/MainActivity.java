@@ -1,30 +1,22 @@
 package com.example.easydo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.Placeholder;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.ParseException;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
             fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getTodoList())).commit();
+            toolbar.setText(getResources().getString(R.string.todo));
 
             FloatingActionButton addNewTask = findViewById(R.id.fab);
             addNewTask.setOnClickListener(new View.OnClickListener() {
@@ -96,14 +89,12 @@ public class MainActivity extends AppCompatActivity {
                 addNewTask.setVisibility(View.VISIBLE);
             }
             ImageButton settingsButton = findViewById(R.id.settings_button);
-            ImageButton backButton = findViewById(R.id.backButton);
             settingsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("Settings").addToBackStack("settings view").commit();
                     toolbar.setText(getResources().getString(R.string.settings));
                     addNewTask.setVisibility(View.INVISIBLE);
-                    backButton.setVisibility(View.GONE);
                 }
             });
         }catch (Exception e){

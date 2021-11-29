@@ -7,6 +7,7 @@
     android:background="@android:color/darker_gray"
     android:id="@+id/grid_layout_add_task"
     android:translationZ="1dp"
+    android:layout_gravity="center"
     >
     <TextView
         android:text="@string/add_new_task"
