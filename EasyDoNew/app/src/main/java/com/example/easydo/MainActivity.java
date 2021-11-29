@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
-            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getTodoList())).commit();
+            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).commit();
             toolbar.setText(getResources().getString(R.string.todo));
 
             FloatingActionButton addNewTask = findViewById(R.id.fab);
             addNewTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTask()).addToBackStack("add new task").commit();
+                    fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment()).addToBackStack("add new task").commit();
                 }
             });
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     toolbar.setText(getResources().getString(R.string.todo));
                     addNewTask.setVisibility(View.VISIBLE);
                     addNewTask.setEnabled(true);
-                    fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getTodoList())).addToBackStack("todo view").commit();
+                    fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).addToBackStack("todo view").commit();
                 }
             });
             BottomNavigationItemView doneView = findViewById(R.id.nav_done);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     toolbar.setText(getResources().getString(R.string.done));
                     addNewTask.setVisibility(View.INVISIBLE);
                     addNewTask.setEnabled(false);
-                    fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(taskManager.getDoneList())).addToBackStack("done view").commit();
+                    fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("done view").commit();
                 }
             });
             if (addNewTask.getVisibility() == View.INVISIBLE) {

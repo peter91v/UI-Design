@@ -21,7 +21,7 @@ import com.example.easydo.dao.Task;
 import java.util.Calendar;
 
 
-public class AddNewTask extends Fragment {
+public class AddNewTaskFragment extends Fragment {
     private EditText editTextTitle,
             editTextDate,
             editTextLocation,
@@ -31,8 +31,8 @@ public class AddNewTask extends Fragment {
     private Task taskData = new Task.TaskBuilder("").createTask();
     private boolean editMode = false;
 
-    public AddNewTask() {}
-    public AddNewTask(Task newTask) {
+    public AddNewTaskFragment() {}
+    public AddNewTaskFragment(Task newTask) {
         taskData = newTask;
         editMode = true;
     }
@@ -107,7 +107,7 @@ public class AddNewTask extends Fragment {
     private void destroyFragment()
     {
         FragmentManager fragmentManager = getParentFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, new TaskRecycler(MainActivity.getTaskManager().getTodoList())).commit();
+        fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(MainActivity.getTaskManager().getTodoList())).commit();
         fragmentManager.beginTransaction().remove(this).commit();
     }
 

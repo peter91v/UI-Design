@@ -15,19 +15,26 @@ import com.example.easydo.dao.Task;
 
 import java.util.ArrayList;
 
-public class TaskRecycler extends Fragment
+public class TaskRecyclerFragment extends Fragment
 {
     private static final String TAG = "TaskRecyclerFragment";
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
-    TaskRecycler(ArrayList<Task> taskList) {
-        tasks = taskList;
+
+    public static TaskRecyclerFragment newInstance(ArrayList<Task> taskList) {
+        TaskRecyclerFragment taskRecyclerFragment = new TaskRecyclerFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("TASKLIST_KEY", taskList);
+        taskRecyclerFragment.setArguments(args);
+
+        return taskRecyclerFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "Initializing the RecyclerView");
+        tasks = (ArrayList<Task>) getArguments().getSerializable("TASKLIST_KEY");
 
         View view = inflater.inflate(R.layout.fragment_task_recycler, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.taskRecycler);

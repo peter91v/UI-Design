@@ -5,10 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -149,7 +147,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = ((AppCompatActivity)taskContext).getSupportFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTask(taskList.get(position))).addToBackStack("edit task").commit();
+                fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment(taskList.get(position))).addToBackStack("edit task").commit();
                 deleteTaskListEntry(position);
             }
         });
