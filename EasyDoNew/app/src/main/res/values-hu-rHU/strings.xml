@@ -9,7 +9,7 @@
     <string name="location">Hely</string>
     <string name="date">Dátum</string>
     <string name="task_title">Feladatnév</string>
-    <string name="add_new_task">Új feledat hozzáadás</string>
+    <string name="add_new_task">Feladat</string>
 
     <!--Settings Menu-->
     <string name="language">Nyelv</string>

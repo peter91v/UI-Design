@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 
@@ -30,7 +31,7 @@ public class AddNewTaskFragment extends Fragment {
     private Button buttonSave, buttonCancel;
     private Task taskData = new Task.TaskBuilder("").createTask();
     private boolean editMode = false;
-
+    FloatingActionButton addNewTask;
     public AddNewTaskFragment() {}
     public AddNewTaskFragment(Task newTask) {
         taskData = newTask;
@@ -40,6 +41,9 @@ public class AddNewTaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mainView = inflater.inflate(R.layout.app_bar_main, container, false);
+        addNewTask = mainView.findViewById(R.id.fab);
+
         View view = inflater.inflate(R.layout.fragment_addtask, container,false);
         editTextTitle = view.findViewById(R.id.edit_task_title);
         editTextDate = view.findViewById(R.id.edit_task_date);
@@ -47,6 +51,7 @@ public class AddNewTaskFragment extends Fragment {
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
+
 
         editTextTitle.setText(taskData.getTitle());
         editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
@@ -77,6 +82,8 @@ public class AddNewTaskFragment extends Fragment {
                 try {
                     MainActivity.getTaskManager().addTask(createTask(), true);
                     destroyFragment();
+                    addNewTask.setEnabled(true);
+                    addNewTask.setVisibility(View.VISIBLE);
 
                 }catch (Exception e)
                 {
@@ -99,6 +106,7 @@ public class AddNewTaskFragment extends Fragment {
                 if(editMode)
                     MainActivity.getTaskManager().addTask(taskData, true);
                 destroyFragment();
+                addNewTask.setVisibility(View.VISIBLE);
             }
         });
         return view;
