@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.Task;
+import com.example.easydo.dao.TaskContract;
+import com.example.easydo.dao.TaskDBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,14 +38,19 @@ public class MainActivity extends AppCompatActivity {
     private static Context contextMain;
     private static boolean onTodoList = true;
     private static boolean isSettings = true;
+    private static TaskDBHelper easDoDBHelper;
+    private static SQLiteDatabase easyDoDatabase;
     /***/
-    private static final TaskManager taskManager = new TaskManager();
+    private static TaskManager taskManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
+            easDoDBHelper = new TaskDBHelper(this);
+            taskManager = new TaskManager(easDoDBHelper.getReadableDatabase(), easDoDBHelper.getWritableDatabase());
+
             getSupportActionBar().hide();
             setContentView(R.layout.activity_main);
             uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
@@ -179,4 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
+
+
 }

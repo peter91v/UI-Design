@@ -2,6 +2,7 @@ package com.example.easydo;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -71,10 +72,10 @@ public class AddNewTaskFragment extends Fragment {
         editTextDescription.setText(taskData.getDescription());
 
         Map<Integer,String> prio = new HashMap<>();
-        prio.put(0,"keine");
-        prio.put(1,"unwichtig");
-        prio.put(2,"Wichtig");
-        prio.put(3,"Sehr wichtig");
+        prio.put(0,"no priority"); //keine
+        prio.put(1,"less important"); //unwichtig
+        prio.put(2,"important"); //wichtig
+        prio.put(3,"very important"); //sehr wichtig
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.programming_languages,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -167,7 +168,7 @@ public class AddNewTaskFragment extends Fragment {
         String description = editTextDescription.getText().toString();
         Task newTask;
 
-        if (!title.isEmpty())
+        if (!title.trim().isEmpty())
             newTask = new Task.TaskBuilder(title).createTask();
         else
             throw new RuntimeException(getResources().getString(R.string.no_title));
@@ -177,7 +178,6 @@ public class AddNewTaskFragment extends Fragment {
             newTask.setLocation(location);
         if(!description.isEmpty())
             newTask.setDescription(description);
-
         return newTask;
     }
 }
