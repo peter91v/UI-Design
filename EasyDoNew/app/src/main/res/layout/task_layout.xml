@@ -32,12 +32,11 @@
         android:layout_width="40dp"
         android:layout_height="60dp"
         android:layout_toStartOf="@+id/taskCalender"
-        app:tint="@color/text_color_tertiary"
-        android:scaleType="fitCenter"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_exclamation_solid"
-        />
+        app:tint="@color/text_color_tertiary" />
 
     <ImageView
         android:id="@+id/taskCalender"

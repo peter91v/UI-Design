@@ -60,6 +60,7 @@ public class AddNewTaskFragment extends Fragment {
 
         editTextTitle.setText(taskData.getTitle());
         editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
+        editTextTime.setText(taskData.getDeadline("HH:mm"));
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
 
@@ -127,6 +128,7 @@ public class AddNewTaskFragment extends Fragment {
                 editTextDate.setText("");
                 editTextLocation.setText("");
                 editTextDescription.setText("");
+                editTextTime.setText("");
                 if(editMode)
                     MainActivity.getTaskManager().addTask(taskData, true);
                 destroyFragment();
@@ -146,6 +148,7 @@ public class AddNewTaskFragment extends Fragment {
     private Task createTask() throws RuntimeException{
         String title = editTextTitle.getText().toString();
         String deadline = editTextDate.getText().toString();
+        String deadlineTime = editTextTime.getText().toString();
         String location = editTextLocation.getText().toString();
         String description = editTextDescription.getText().toString();
         Task newTask;
@@ -155,7 +158,7 @@ public class AddNewTaskFragment extends Fragment {
         else
             throw new RuntimeException(getResources().getString(R.string.no_title));
         if(!deadline.isEmpty())
-            newTask.setDeadline(deadline, "dd.MM.yyyy");
+            newTask.setDeadline(deadline + deadlineTime, "dd.MM.yyyyHH:mm");
         if(!location.isEmpty())
             newTask.setLocation(location);
         if(!description.isEmpty())

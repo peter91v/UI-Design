@@ -91,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //date
         holder.taskDeadline.setText(taskList.get(position).getDeadline("dd.MM.yyyy"));
         //time
-        holder.taskDeadlineTime.setText(taskList.get(position).getDeadline("HH:mm:ss"));
+        holder.taskDeadlineTime.setText(taskList.get(position).getDeadline("HH:mm"));
         //priority
         switch (taskList.get(position).getPriority()){
             case 3:
