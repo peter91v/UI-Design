@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
             uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
             TextView toolbar = findViewById(R.id.toolbartitle);
             contextMain = getApplicationContext();
-
+            //TODO LOCAL ÄNDERT SICH BEIM DREHEN
+            setLocale(contextMain.getResources().getConfiguration().locale.toString());
 
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
@@ -128,15 +130,19 @@ public class MainActivity extends AppCompatActivity {
 
             Toast toast = Toast.makeText(contextMain, text, duration);
             toast.show();
+            Log.d(TAG, "onCreate: " + e.getStackTrace());
         }
     }
-    public void setLocale (Context context, String lang) {
+    public void setLocale (String lang) {
+        Configuration configuration = contextMain.getResources().getConfiguration();
         Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        if(!configuration.locale.equals(locale)){
+            Locale.setDefault(locale);
+            configuration.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+            recreate();
+        }
     }
     public static TaskManager getTaskManager() {
         return taskManager;

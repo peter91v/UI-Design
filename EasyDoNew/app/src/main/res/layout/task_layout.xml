@@ -3,7 +3,7 @@
     android:id="@+id/taskParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:background="@color/bluegrey600"
     android:layout_marginBottom="3dp">
 
 
@@ -69,15 +69,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskLocation"
-        android:text="TEST DESKRIPTION LALALALALAALAL"/>
+        android:layout_marginStart="60dp"
+        style="@android:style/Widget.Material.Spinner.Underlined"
+        android:text="TEST DESKRIPTION LALALALALAALAL" />
 
     <ImageButton
         android:id="@+id/taskEdit"
+        android:layout_marginTop="10dp"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="15dp"
         android:layout_below="@id/taskDescription"
         android:background="@android:color/transparent"
-        android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_edit_solid" />
 
@@ -85,14 +88,18 @@
         android:id="@+id/taskDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:background="@android:color/transparent"
         android:layout_below="@id/taskDescription"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_trash_alt_solid" />
 
-
-
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/taskDelete"
+        android:background="@color/bluegrey800" />
 </RelativeLayout>
