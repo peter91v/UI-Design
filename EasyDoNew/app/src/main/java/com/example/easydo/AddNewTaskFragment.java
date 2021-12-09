@@ -1,6 +1,7 @@
 package com.example.easydo;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,13 +22,15 @@ import com.example.easydo.dao.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.List;
 
 
 public class AddNewTaskFragment extends Fragment {
     private EditText editTextTitle,
             editTextDate,
             editTextLocation,
-            editTextDescription;
+            editTextDescription,
+            editTextTime;
     private DatePickerDialog datePickerDialog;
     private Button buttonSave, buttonCancel;
     private Task taskData = new Task.TaskBuilder("").createTask();
@@ -47,6 +51,7 @@ public class AddNewTaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_addtask, container,false);
         editTextTitle = view.findViewById(R.id.edit_task_title);
         editTextDate = view.findViewById(R.id.edit_task_date);
+        editTextTime = view.findViewById(R.id.edit_task_time);
         editTextLocation =view.findViewById(R.id.edit_task_location);
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
@@ -57,6 +62,8 @@ public class AddNewTaskFragment extends Fragment {
         editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
+
+        int[] prio = getResources().getIntArray(R.array.priority);
 
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +82,24 @@ public class AddNewTaskFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
+        editTextTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                Context context2 = getContext();
 
+                int hours = calendar.get((Calendar.HOUR_OF_DAY));
+                int minutes = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context2, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        editTextTime.setText(hourOfDay + ":" + minute);
+                    }
+                },hours,minutes,true);
+                timePickerDialog.show();
+            }
+
+        });
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

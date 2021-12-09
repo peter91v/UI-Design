@@ -1,9 +1,12 @@
 package com.example.easydo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -149,5 +152,18 @@ public class MainActivity extends AppCompatActivity {
     }
     public static UiModeManager getUiModeManager() {
         return uiModeManager;
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence title = "Todo app channel";
+            String description = "Todo app channel";
+            int priority = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel notificationChannel = new NotificationChannel("toDoApp", title,priority);
+            notificationChannel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }
