@@ -1,5 +1,6 @@
 package com.example.easydo;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,4 +28,7 @@ public class Alarm extends BroadcastReceiver {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, new Intent[]{intent1}, 0);
     }
+
+
+
 }

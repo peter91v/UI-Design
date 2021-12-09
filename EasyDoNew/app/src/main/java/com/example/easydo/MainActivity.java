@@ -1,9 +1,12 @@
 package com.example.easydo;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -21,6 +24,7 @@ import com.example.easydo.dao.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment()).addToBackStack("add new task").commit();
                 }
             });
-
+            createNotificationChannel();
 
 
             ImageButton settingsButton = findViewById(R.id.settings_button);
@@ -159,11 +163,20 @@ public class MainActivity extends AppCompatActivity {
             CharSequence title = "Todo app channel";
             String description = "Todo app channel";
             int priority = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel("toDoApp", title,priority);
+            NotificationChannel notificationChannel = new NotificationChannel("Alarm", title,priority);
             notificationChannel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
         }
+    }
+    private void setAlarm(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, Alarm.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent,0);
+        Calendar calendar = Calendar.getInstance();
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
 }
