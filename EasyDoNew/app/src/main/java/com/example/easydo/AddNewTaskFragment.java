@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,7 +25,9 @@ import com.example.easydo.dao.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class AddNewTaskFragment extends Fragment {
@@ -56,7 +61,8 @@ public class AddNewTaskFragment extends Fragment {
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
-
+        Spinner spinner = view.findViewById(R.id.edit_task_Priority);
+        //map
 
         editTextTitle.setText(taskData.getTitle());
         editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
@@ -64,7 +70,15 @@ public class AddNewTaskFragment extends Fragment {
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
 
-        int[] prio = getResources().getIntArray(R.array.priority);
+        Map<Integer,String> prio = new HashMap<>();
+        prio.put(0,"keine");
+        prio.put(1,"unwichtig");
+        prio.put(2,"Wichtig");
+        prio.put(3,"Sehr wichtig");
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.programming_languages,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
