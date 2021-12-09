@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/taskParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,30 +20,64 @@
         android:id="@+id/taskTitle"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_toStartOf="@id/taskCalender"
+        android:layout_marginEnd="90dp"
+        android:layout_toStartOf="@+id/taskPriority"
         android:layout_toEndOf="@id/taskCheckBox"
         android:gravity="center_vertical"
         android:text="TESTTEXT"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/taskCalender"
-        android:layout_width="60dp"
+        android:id="@+id/taskPriority"
+        android:layout_width="40dp"
         android:layout_height="60dp"
-        android:layout_toStartOf="@+id/taskDeadline"
-        android:contentDescription="calenderIcon"
+        android:layout_toStartOf="@+id/taskCalender"
+        app:tint="@color/text_color_tertiary"
+        android:scaleType="fitCenter"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
+        android:src="@drawable/ic_exclamation_solid"
+        />
+
+    <ImageView
+        android:id="@+id/taskCalender"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/taskDeadline"
+        android:contentDescription="calenderIcon"
+        android:paddingHorizontal="23dp"
+
         android:src="@drawable/ic_calendar_alt_solid" />
+    <ImageView
+        android:id="@+id/taskClock"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/taskDeadline"
+        android:layout_below="@id/taskCalender"
+        android:contentDescription="calenderIcon"
+        android:paddingHorizontal="23dp"
+        android:src="@drawable/ic_clock_solid" />
 
     <TextView
         android:id="@+id/taskDeadline"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:gravity="center_vertical"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:text="99.99.9999"
         android:textStyle="bold"
-        android:text="99.99.9999" />
+        android:layout_marginEnd="10dp"/>
+
+    <TextView
+        android:id="@+id/taskDeadlineTime"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/taskDeadline"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:text="99:99:99"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/taskLocation"
@@ -66,11 +101,11 @@
 
     <TextView
         android:id="@+id/taskDescription"
+        style="@android:style/Widget.Material.Spinner.Underlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskLocation"
         android:layout_marginStart="60dp"
-        style="@android:style/Widget.Material.Spinner.Underlined"
         android:text="TEST DESKRIPTION LALALALALAALAL" />
 
     <ImageButton

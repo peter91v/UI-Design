@@ -1,6 +1,7 @@
 package com.example.easydo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +90,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskTitle.setText(taskList.get(position).getTitle());
         //date
         holder.taskDeadline.setText(taskList.get(position).getDeadline("dd.MM.yyyy"));
+        //time
+        holder.taskDeadlineTime.setText(taskList.get(position).getDeadline("HH:mm:ss"));
+        //priority
+        switch (taskList.get(position).getPriority()){
+            case 3:
+                holder.taskPriority.getDrawable().setTint(R.color.priority_red);
+                break;
+            case 2:
+                holder.taskPriority.getDrawable().setTint(R.color.priority_yellow);
+                break;
+            case 1:
+                holder.taskPriority.getDrawable().setTint(R.color.priority_green);
+            default:
+                break;
+        }
         //checkbox
         if(taskList.get(position).isDone())
             holder.taskCheckbox.setChecked(true);
@@ -113,6 +129,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 notifyItemRemoved(position);
             }
         });
+
+
 
 
         //expand mechanism
@@ -198,6 +216,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView taskDescription;
         ImageButton taskEdit;
         ImageButton taskDelete;
+        ImageView taskPriority;
+        TextView taskDeadlineTime;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -211,6 +231,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskDescription = itemView.findViewById(R.id.taskDescription);
             taskEdit = itemView.findViewById(R.id.taskEdit);
             taskDelete = itemView.findViewById(R.id.taskDelete);
+            taskPriority = itemView.findViewById(R.id.taskPriority);
+            taskDeadlineTime = itemView.findViewById(R.id.taskDeadlineTime);
         }
     }
 }
