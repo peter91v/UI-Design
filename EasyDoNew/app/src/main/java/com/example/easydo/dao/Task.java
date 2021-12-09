@@ -2,6 +2,7 @@ package com.example.easydo.dao;
 
 import android.util.Log;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,13 +13,12 @@ public class Task implements Comparable<Task>
     private Date deadline = null;
     private String location = "";
     private String description = "";
+    private Short priority = 0;
     private boolean done = false;
 
     private Task(TaskBuilder builder) {
         title = builder.title;
         deadline = builder.deadline;
-
-
 
         location = builder.location;
         description = builder.description;
@@ -75,9 +75,20 @@ public class Task implements Comparable<Task>
     public void setDone(boolean done) {
         this.done = done;
     }
+    
+    public short getPriority() {
+        return priority;
+    }
+
+    public void setPriority(short priority) {
+        this.priority = priority;
+    }
 
     @Override
     public int compareTo(Task o) {
+        if(this.priority.compareTo(o.priority) != 0)
+            return this.priority.compareTo(o.priority) * -1; //higher priority should be shown first
+
         if(this.deadline == null)
             return 1;
         else if(o.deadline == null)
@@ -91,6 +102,7 @@ public class Task implements Comparable<Task>
         private Date deadline = null;
         private String location = "";
         private String description = "";
+        private short priority = 0;
         private boolean done = false;
 
         public TaskBuilder(String title) {
@@ -118,6 +130,11 @@ public class Task implements Comparable<Task>
 
         public TaskBuilder withDescription(String description) {
             this.description = description;
+            return this;
+        }
+
+        public TaskBuilder withPriority(short priority) {
+            this.priority = priority;
             return this;
         }
 
