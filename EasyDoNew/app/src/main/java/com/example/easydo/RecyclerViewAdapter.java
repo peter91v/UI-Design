@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.easydo.dao.Task;
@@ -95,13 +96,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //priority
         switch (taskList.get(position).getPriority()){
             case 3:
-                holder.taskPriority.getDrawable().setTint(R.color.priority_red);
+                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_red));
                 break;
             case 2:
-                holder.taskPriority.getDrawable().setTint(R.color.priority_yellow);
+                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_yellow));
                 break;
             case 1:
-                holder.taskPriority.getDrawable().setTint(R.color.priority_green);
+                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_green));
             default:
                 break;
         }

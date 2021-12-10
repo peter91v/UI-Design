@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     public static UiModeManager getUiModeManager() {
         return uiModeManager;
     }
+    public static Context getMainContext() {return contextMain;}
 
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
-    private void setAlarm(){
+    public void setAlarm(){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, Alarm.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent,0);

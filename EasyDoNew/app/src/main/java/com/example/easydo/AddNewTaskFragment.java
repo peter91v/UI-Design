@@ -2,8 +2,8 @@ package com.example.easydo;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +39,8 @@ public class AddNewTaskFragment extends Fragment {
             editTextTime;
     private DatePickerDialog datePickerDialog;
     private Button buttonSave, buttonCancel;
+    private Calendar calendar;
+    Spinner spinner;
     private Task taskData = new Task.TaskBuilder("").createTask();
     private boolean editMode = false;
     FloatingActionButton addNewTask;
@@ -62,8 +64,8 @@ public class AddNewTaskFragment extends Fragment {
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
-        Spinner spinner = view.findViewById(R.id.edit_task_Priority);
-        //map
+        spinner = view.findViewById(R.id.edit_task_Priority);
+
 
         editTextTitle.setText(taskData.getTitle());
         editTextDate.setText(taskData.getDeadline("dd.MM.yyyy"));
@@ -71,11 +73,6 @@ public class AddNewTaskFragment extends Fragment {
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
 
-        Map<Integer,String> prio = new HashMap<>();
-        prio.put(0,"no priority"); //keine
-        prio.put(1,"less important"); //unwichtig
-        prio.put(2,"important"); //wichtig
-        prio.put(3,"very important"); //sehr wichtig
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.programming_languages,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -84,7 +81,7 @@ public class AddNewTaskFragment extends Fragment {
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
+                calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 int month = calendar.get(Calendar.MONTH);
                 int year = calendar.get(Calendar.YEAR);
@@ -101,7 +98,7 @@ public class AddNewTaskFragment extends Fragment {
         editTextTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
+                calendar = Calendar.getInstance();
                 Context context2 = getContext();
 
                 int hours = calendar.get((Calendar.HOUR_OF_DAY));
@@ -122,9 +119,10 @@ public class AddNewTaskFragment extends Fragment {
                 try {
                     MainActivity.getTaskManager().addTask(createTask(), true);
                     destroyFragment();
+
+                    ((MainActivity)getActivity()).setAlarm();
                     addNewTask.setEnabled(true);
                     addNewTask.setVisibility(View.VISIBLE);
-
                 }catch (Exception e)
                 {
                     CharSequence text = e.getMessage();
@@ -166,9 +164,28 @@ public class AddNewTaskFragment extends Fragment {
         String deadlineTime = editTextTime.getText().toString();
         String location = editTextLocation.getText().toString();
         String description = editTextDescription.getText().toString();
+        Short priority;
+        switch (spinner.getSelectedItemPosition()) {
+            case 0:
+                priority = 0;
+                break;
+            case 1:
+                priority = 1;
+                break;
+            case 2:
+                priority = 2;
+                break;
+            case 3:
+                priority = 3;
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + spinner.getSelectedItemPosition());
+        }
+
         Task newTask;
 
-        if (!title.trim().isEmpty())
+        if (!title.isEmpty())
             newTask = new Task.TaskBuilder(title).createTask();
         else
             throw new RuntimeException(getResources().getString(R.string.no_title));
@@ -178,6 +195,8 @@ public class AddNewTaskFragment extends Fragment {
             newTask.setLocation(location);
         if(!description.isEmpty())
             newTask.setDescription(description);
+
+        newTask.setPriority(priority);
         return newTask;
     }
 }
