@@ -1,9 +1,11 @@
 package com.example.easydo;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -130,10 +132,31 @@ public class AddNewTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle("Do you want to save this task to your Calendar?")
+                            .setMessage("Press yes to save it in your calendar and in your app. Press no to save it only in your app")
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.getTaskManager().addTask(createTask(), true);
+                                    ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, calendar);
+                                    destroyFragment();
                     MainActivity.getTaskManager().addTask(createTask(), true);
                     destroyFragment();
                     ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, calendar);
 
+                                }
+                            })
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.getTaskManager().addTask(createTask(), true);
+                                    destroyFragment();
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                     addNewTask.setEnabled(true);
                     addNewTask.setVisibility(View.VISIBLE);
 

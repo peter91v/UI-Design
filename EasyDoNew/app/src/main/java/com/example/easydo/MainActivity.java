@@ -27,7 +27,9 @@ import androidx.fragment.app.FragmentManager;
 import com.example.easydo.dao.Task;
 import com.example.easydo.dao.TaskContract;
 import com.example.easydo.dao.TaskDBHelper;
+import com.example.easydo.databinding.AppBarMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static boolean isSettings = true;
     private static TaskDBHelper easDoDBHelper;
     private static TaskManager taskManager;
-
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment()).addToBackStack("add new task").commit();
+                    addNewTask.setVisibility(View.GONE);
+                    addNewTask.setEnabled(false);
                 }
             });
             createNotificationChannel();
