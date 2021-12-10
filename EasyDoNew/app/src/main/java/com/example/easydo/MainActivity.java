@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private static boolean onTodoList = true;
     private static boolean isSettings = true;
     private static TaskDBHelper easDoDBHelper;
-    private static SQLiteDatabase easyDoDatabase;
-    /***/
     private static TaskManager taskManager;
 
 
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             contextMain = getApplicationContext();
             //TODO LOCAL ÄNDERT SICH BEIM DREHEN
             setLocale(contextMain.getResources().getConfiguration().locale.toString());
-
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
             if(onTodoList)

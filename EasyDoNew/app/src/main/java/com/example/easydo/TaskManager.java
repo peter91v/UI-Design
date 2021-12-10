@@ -92,27 +92,14 @@ public class TaskManager {
     public void addTask(Task todo, boolean onTodoList){
 
         int taskId = todo.getId();
-        boolean update = false;
 
         if(onTodoList){
             todoList.add(todo);
             sortTasks(true);
-            for(Task task : todoList){
-                if(task.getId() == taskId){
-                    update = true;
-                    break;
-                }
-            }
         }
         else{
             doneList.add(todo);
             sortTasks(false);
-            for(Task task : doneList){
-                if(task.getId() == taskId){
-                    update = true;
-                    break;
-                }
-            }
         }
 
         ContentValues newTaskVals = new ContentValues();
@@ -126,10 +113,7 @@ public class TaskManager {
         newTaskVals.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, todo.getDescription());
         newTaskVals.put(TaskContract.TaskEntry.COLUMN_DONE, done);
 
-        if(update)
-            writeDB.update(TaskContract.TaskEntry.TABLE_NAME, newTaskVals, TaskContract.TaskEntry._ID + "=" + taskId, null);
-        else
-            writeDB.insert(TaskContract.TaskEntry.TABLE_NAME, null, newTaskVals);
+        writeDB.insert(TaskContract.TaskEntry.TABLE_NAME, null, newTaskVals);
     }
 
     public void deleteTask(int id, boolean onTodoList) {

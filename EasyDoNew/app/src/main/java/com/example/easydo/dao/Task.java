@@ -2,12 +2,13 @@ package com.example.easydo.dao;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Task implements Comparable<Task>
+public class Task implements Comparable<Task>, Serializable
 {
 
     private int id;

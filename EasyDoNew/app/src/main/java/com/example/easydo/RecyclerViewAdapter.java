@@ -118,14 +118,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Task completedTask = taskList.get(holder.getAdapterPosition());
                 if(isChecked){
                     completedTask.setDone(true);
-                    MainActivity.getTaskManager().addTask(completedTask, false);
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), true);
+                    MainActivity.getTaskManager().addTask(completedTask, false);
 
                 }
                 else {
                     completedTask.setDone(false);
-                    MainActivity.getTaskManager().addTask(completedTask, true);
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), false);
+                    MainActivity.getTaskManager().addTask(completedTask, true);
                 }
                 notifyItemRemoved(position);
             }
