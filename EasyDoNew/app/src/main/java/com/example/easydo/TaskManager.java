@@ -17,13 +17,18 @@ public class TaskManager {
     private final ArrayList<Task> doneList = new ArrayList<>();
     private final SQLiteDatabase readDB;
     private final SQLiteDatabase writeDB;
-    private static CounterHelper idCounter = CounterHelper.getInstance();
 
 
     public TaskManager(SQLiteDatabase readDB, SQLiteDatabase writeDB) throws Exception{
         this.readDB = readDB;
         this.writeDB = writeDB;
         Cursor taskList = getAllTasks();
+
+        if(taskList.moveToLast()) {
+            int colIndex = taskList.getColumnIndex(TaskContract.TaskEntry._ID);
+            CounterHelper.getInstance(taskList.getInt(colIndex));
+        }
+
         if(taskList.moveToFirst()){
             do {
                 int id = taskList.getInt(taskList.getColumnIndex(TaskContract.TaskEntry._ID));
@@ -53,8 +58,6 @@ public class TaskManager {
                     todoList.add(task);
             }while(taskList.moveToNext());
 
-            if(taskList.moveToLast())
-                idCounter = CounterHelper.getInstance(taskList.getInt(taskList.getInt(taskList.getColumnIndex(TaskContract.TaskEntry._ID))));
 
             sortTasks(false);
             sortTasks(true);
@@ -69,7 +72,7 @@ public class TaskManager {
                 null,
                 null,
                 null,
-                TaskContract.TaskEntry._ID + " DESC"
+                TaskContract.TaskEntry._ID + " ASC"
         );
     }
 
@@ -116,6 +119,7 @@ public class TaskManager {
         writeDB.insert(TaskContract.TaskEntry.TABLE_NAME, null, newTaskVals);
     }
 
+    /**id = position in todo/donelist*/
     public void deleteTask(int id, boolean onTodoList) {
         int deleteId;
 

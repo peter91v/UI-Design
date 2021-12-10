@@ -109,7 +109,7 @@ public class Task implements Comparable<Task>, Serializable
     }
 
     public static class TaskBuilder {
-        private int id = CounterHelper.getInstance().getId();
+        private int id;
         private String title = "";
         private Date deadline = null;
         private String location = "";
