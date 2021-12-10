@@ -27,12 +27,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.easydo.dao.CounterHelper;
 import com.example.easydo.dao.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -46,7 +46,7 @@ public class AddNewTaskFragment extends Fragment {
     private Button buttonSave, buttonCancel;
     private Task taskData = new Task.TaskBuilder("").createTask();
     private boolean editMode = false;
-    private Spinner spinner;
+    private Spinner editDropDownPriority;
     private Calendar calendar;
     FloatingActionButton addNewTask;
     public AddNewTaskFragment() {}
@@ -69,7 +69,7 @@ public class AddNewTaskFragment extends Fragment {
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
-        spinner = view.findViewById(R.id.edit_task_Priority);
+        editDropDownPriority = view.findViewById(R.id.edit_task_Priority);
         //map
 
         editTextTitle.setText(taskData.getTitle());
@@ -78,15 +78,11 @@ public class AddNewTaskFragment extends Fragment {
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
 
-        Map<Integer,String> prio = new HashMap<>();
-        prio.put(0,"no priority"); //keine
-        prio.put(1,"less important"); //unwichtig
-        prio.put(2,"important"); //wichtig
-        prio.put(3,"very important"); //sehr wichtig
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.programming_languages,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        editDropDownPriority.setAdapter(adapter);
+
+        editDropDownPriority.setSelection(taskData.getPriority(), false);
 
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,8 +197,8 @@ public class AddNewTaskFragment extends Fragment {
         String deadlineTime = editTextTime.getText().toString();
         String location = editTextLocation.getText().toString();
         String description = editTextDescription.getText().toString();
-        Short priority;
-        switch (spinner.getSelectedItemPosition()){
+        short priority;
+        switch (editDropDownPriority.getSelectedItemPosition()){
 
             case 1:
                 priority = 1;
@@ -219,12 +215,20 @@ public class AddNewTaskFragment extends Fragment {
 
         Task newTask;
 
-        if (!title.trim().isEmpty())
+        if (!title.trim().isEmpty()){
             newTask = new Task.TaskBuilder(title).createTask();
+            newTask.setId(CounterHelper.getInstance().getId());
+        }
         else
             throw new RuntimeException(getResources().getString(R.string.no_title));
-        if(!deadline.isEmpty())
-            newTask.setDeadline(deadline + deadlineTime, "dd.MM.yyyyHH:mm");
+        if(!deadline.isEmpty() || !deadlineTime.isEmpty()){
+            if(deadline.isEmpty())
+                newTask.setDeadline(deadlineTime, "HH:mm");
+            else if(deadlineTime.isEmpty())
+                newTask.setDeadline(deadline, "dd.MM.yyyy");
+            else
+                newTask.setDeadline(deadline + deadlineTime, "dd.MM.yyyyHH:mm");
+        }
         if(!location.isEmpty())
             newTask.setLocation(location);
         if(!description.isEmpty())

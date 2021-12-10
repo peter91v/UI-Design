@@ -26,8 +26,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<Task> taskList = new ArrayList<>();
-    private Context taskContext;
+    private final ArrayList<Task> taskList;
+    private final Context taskContext;
     private int expandedItem = -1;
     private int oldExpandedItem = -1;
 
@@ -166,6 +166,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = ((AppCompatActivity)taskContext).getSupportFragmentManager();
+
                 fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment(taskList.get(position))).addToBackStack("edit task").commit();
                 deleteTaskListEntry(position);
             }
@@ -188,7 +189,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     private void deleteTaskListEntry(int position){
-        taskList.remove(position);
+        MainActivity.getTaskManager().deleteTask(position, !taskList.get(position).isDone());
+
         notifyItemRemoved(position);
     }
 
