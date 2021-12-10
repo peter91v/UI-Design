@@ -13,8 +13,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -189,6 +191,17 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
-
-
+    public void creatEvent(EditText title, EditText location, EditText description, Calendar calendar){
+        if (Build.VERSION.SDK_INT >= 14) {
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                //    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, title.getText().toString())
+                    .putExtra(CalendarContract.Events.DESCRIPTION, description.getText().toString())
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString())
+                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
 }
