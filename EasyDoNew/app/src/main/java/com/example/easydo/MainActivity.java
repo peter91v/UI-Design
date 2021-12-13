@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             TextView toolbar = findViewById(R.id.toolbartitle);
             contextMain = getApplicationContext();
             //TODO LOCAL ÄNDERT SICH BEIM DREHEN
-            setLocale(contextMain.getResources().getConfiguration().locale.toString());
+            setLocale(getResources().getConfiguration().locale.toString());
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
             if(onTodoList)
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if(isSettings){
                         settingsButton.setImageResource(R.drawable.ic_arrow_left_solid);
-                        fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("Settings").addToBackStack("settings view").commit();
+                        fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("settings view").commit();
                         toolbar.setText(getResources().getString(R.string.settings));
                         addNewTask.setVisibility(View.GONE);
                         addNewTask.setEnabled(false);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 14) {
             Intent intent = new Intent(Intent.ACTION_INSERT)
                     .setData(CalendarContract.Events.CONTENT_URI)
-                //    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getTimeInMillis())
+                   .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getInstance().getTimeInMillis())
                     .putExtra(CalendarContract.Events.TITLE, title.getText().toString())
                     .putExtra(CalendarContract.Events.DESCRIPTION, description.getText().toString())
                     .putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString())

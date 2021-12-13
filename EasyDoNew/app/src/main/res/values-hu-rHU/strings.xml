@@ -27,4 +27,11 @@
 
     <!--Runtime Error Texts for toasts-->
     <string name="no_title">Feladatnév nincs megadva!</string>
+
+    <!--Alarmdialog -->
+    <string name="title">Szeretné elmenteni ezt a feladatot a naptárába?p</string>
+    <string name="message">Nyomjon igent, ha a feladatot a naptárába és az alkalmazásába szeretné menteni.\nNyomjon nemet, ha csak az alkalmazásába szeretné menteni.</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
+
 </resources>

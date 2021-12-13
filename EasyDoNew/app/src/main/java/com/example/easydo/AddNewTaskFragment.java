@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.CounterHelper;
 import com.example.easydo.dao.Task;
+import com.example.easydo.databinding.AppBarMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -54,13 +55,12 @@ public class AddNewTaskFragment extends Fragment {
         taskData = newTask;
         editMode = true;
     }
-
+    AppBarMainBinding mainActivityBidning;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.app_bar_main, container, false);
         addNewTask = mainView.findViewById(R.id.fab);
-
         View view = inflater.inflate(R.layout.fragment_addtask, container,false);
         editTextTitle = view.findViewById(R.id.edit_task_title);
         editTextDate = view.findViewById(R.id.edit_task_date);
@@ -126,33 +126,46 @@ public class AddNewTaskFragment extends Fragment {
         });
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
+            //do not
             public void onClick(View v) {
                 try {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
                             .setTitle("Do you want to save this task to your Calendar?")
-                            .setMessage("Press yes to save it in your calendar and in your app. Press no to save it only in your app")
-                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+
+                            .setMessage(getResources().getString(R.string.message))
+                            .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
                                     ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, calendar);
+                                    if (editTextDate.equals("") || editTextDate == null)
+                                        ((MainActivity)getActivity()).setAlarm();
+                                    addNewTask.setEnabled(true);
+                                    mainView.findViewById(R.id.fab).setVisibility(View.VISIBLE);
                                     destroyFragment();
-                    MainActivity.getTaskManager().addTask(createTask(), true);
-                    destroyFragment();
-                    ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, calendar);
+                                    addNewTask.setEnabled(true);
+                                    addNewTask.setVisibility(View.VISIBLE);
 
                                 }
                             })
-                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.no),  new DialogInterface.OnClickListener() {
+
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
-                                    destroyFragment();
+                                    if (!editTextDate.equals("") || editTextDate != null)
+                                         ((MainActivity)getActivity()).setAlarm();
 
+                                         destroyFragment();
+                                    addNewTask.setEnabled(true);
+                                    addNewTask.setVisibility(View.VISIBLE);
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
+
                     addNewTask.setEnabled(true);
                     addNewTask.setVisibility(View.VISIBLE);
 

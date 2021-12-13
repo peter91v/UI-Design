@@ -8,15 +8,17 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class Alarm extends BroadcastReceiver {
+import java.util.UUID;
 
+public class Alarm extends BroadcastReceiver {
+    UUID id;
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Intent intent1 = new Intent(context, MainActivity.class);
         Context context1 = new MainActivity().getBaseContext();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, new Intent[]{intent1}, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, new Intent[]{intent1}, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, "Alarm")
                 .setSmallIcon(R.drawable.ic_baseline_access_alarm)
@@ -29,7 +31,7 @@ public class Alarm extends BroadcastReceiver {
         ;
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(123,notificationBuilder.build());
+        notificationManagerCompat.notify(id.randomUUID().hashCode() ,notificationBuilder.build());
 
     }
 }
