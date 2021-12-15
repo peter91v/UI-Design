@@ -1,7 +1,9 @@
 package com.example.easydo;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -55,6 +57,12 @@ public class AddNewTaskFragment extends Fragment {
         taskData = newTask;
         editMode = true;
     }
+    int day;
+    int month;
+    int year;
+    int hours;
+    int minutes;
+    int id = 0;
     AppBarMainBinding mainActivityBidning;
     @Nullable
     @Override
@@ -88,19 +96,22 @@ public class AddNewTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, day);
+                int pickerDay = calendar.get(Calendar.DAY_OF_MONTH);
+                int pickerMonth = calendar.get(Calendar.MONTH);
+                int pickerYear = calendar.get(Calendar.YEAR);
+          //      calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+          //      calendar.set(Calendar.MONTH, month);
+         //       calendar.set(Calendar.DAY_OF_MONTH, day);
                 Context context1 = getContext();
                 datePickerDialog = new DatePickerDialog(context1, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        editTextDate.setText(day + "." + (month + 1) + "." + year);
+                    public void onDateSet(DatePicker datePicker, int pickerYear, int pickerMonth, int pickerDay) {
+                        editTextDate.setText(pickerDay + "." + (pickerMonth + 1) + "." + pickerYear);
+                        day = pickerDay;
+                        month = pickerMonth;
+                        year = pickerYear;
                     }
-                }, year, month, day);
+                }, pickerYear, pickerMonth, pickerDay);
                 datePickerDialog.show();
             }
         });
@@ -110,17 +121,19 @@ public class AddNewTaskFragment extends Fragment {
                 calendar = Calendar.getInstance();
                 Context context2 = getContext();
 
-                int hours = calendar.get((Calendar.HOUR_OF_DAY));
-                int minutes = calendar.get(Calendar.MINUTE);
-                calendar.set(Calendar.HOUR_OF_DAY, hours);
-                calendar.set(Calendar.MINUTE, minutes);
+                int pickerHours = calendar.get((Calendar.HOUR_OF_DAY));
+                int pickerMinutes = calendar.get(Calendar.MINUTE);
+                //calendar.set(Calendar.MINUTE, minutes);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(context2, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        editTextTime.setText(hourOfDay + ":" + minute);
+                    public void onTimeSet(TimePicker view, int pickerHours, int pickerMinutes) {
+                        editTextTime.setText(pickerHours + ":" + pickerMinutes);
+                        minutes = pickerMinutes;
+                        hours = pickerHours;
                     }
-                },hours,minutes,true);
+                },pickerHours,minutes,true);
                 timePickerDialog.show();
+
             }
 
         });
@@ -130,16 +143,20 @@ public class AddNewTaskFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
-                            .setTitle("Do you want to save this task to your Calendar?")
+                            .setTitle(getResources().getString(R.string.title))
 
                             .setMessage(getResources().getString(R.string.message))
                             .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
-                                    ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, calendar);
+                                    long millis = calendar.getTimeInMillis();
+
+                                    ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, millis);
                                     if (editTextDate.equals("") || editTextDate == null)
-                                        ((MainActivity)getActivity()).setAlarm();
+                                        calendar.set(year,month,day,hours,minutes,0);
+                                    ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
+                                    id++;
                                     addNewTask.setEnabled(true);
                                     mainView.findViewById(R.id.fab).setVisibility(View.VISIBLE);
                                     destroyFragment();
@@ -154,7 +171,15 @@ public class AddNewTaskFragment extends Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
                                     if (!editTextDate.equals("") || editTextDate != null)
-                                         ((MainActivity)getActivity()).setAlarm();
+                                    {
+                                        if(year != 0 && month != 0 && day != 0 && hours!= 0 && minutes != 0)
+                                        {
+                                        calendar.set(year,month,day,hours,minutes,0);
+                                        long millis = calendar.getTimeInMillis();
+                                        ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
+                                        id++;
+                                        }
+                                    }
 
                                          destroyFragment();
                                     addNewTask.setEnabled(true);
@@ -250,4 +275,5 @@ public class AddNewTaskFragment extends Fragment {
         newTask.setPriority(priority);
         return newTask;
     }
+
 }

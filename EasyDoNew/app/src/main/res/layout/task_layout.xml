@@ -7,12 +7,21 @@
     android:background="@color/bluegrey600"
     android:layout_marginBottom="3dp">
 
+    <ImageView
+        android:id="@+id/taskPriority"
+        android:layout_width="5dp"
+        android:layout_height="70dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:scaleType="fitCenter"
+        app:tint="@color/text_color_tertiary" />
 
     <CheckBox
         android:id="@+id/taskCheckBox"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="?android:attr/listChoiceIndicatorMultiple"
+        android:layout_toEndOf="@id/taskPriority"
         android:button="@null"
         android:textColorHighlight="@color/white" />
 
@@ -21,22 +30,13 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginEnd="90dp"
-        android:layout_toStartOf="@+id/taskPriority"
+        android:layout_toStartOf="@+id/taskCalender"
         android:layout_toEndOf="@id/taskCheckBox"
         android:gravity="center_vertical"
         android:text="TESTTEXT"
+        android:textSize="15dp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/taskPriority"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:layout_toStartOf="@+id/taskCalender"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_exclamation_solid"
-        app:tint="@color/text_color_tertiary" />
 
     <ImageView
         android:id="@+id/taskCalender"
@@ -61,11 +61,19 @@
         android:id="@+id/taskDeadline"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/arrow"
         android:gravity="center_vertical"
         android:text="99.99.9999"
-        android:textStyle="bold"
-        android:layout_marginEnd="10dp"/>
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:paddingHorizontal="5dp"
+        android:contentDescription="calenderIcon"
+        android:src="@android:drawable/arrow_down_float" />
 
     <TextView
         android:id="@+id/taskDeadlineTime"
@@ -73,7 +81,8 @@
         android:layout_height="30dp"
         android:layout_below="@id/taskDeadline"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="34dp"
         android:gravity="center_vertical"
         android:text="99:99:99"
         android:textStyle="bold" />
@@ -136,4 +145,6 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/taskDelete"
         android:background="@color/bluegrey800" />
+
+
 </RelativeLayout>

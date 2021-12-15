@@ -183,20 +183,29 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
-    public void setAlarm(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    public void setAlarm(int id, String title, long millis){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, Alarm.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent,0);
-        Calendar calendar = Calendar.getInstance();
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id ,intent,0);
+        //Calendar calendar = Calendar.getInstance();
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, millis, AlarmManager.INTERVAL_DAY, pendingIntent);
 
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
-    public void creatEvent(EditText title, EditText location, EditText description, Calendar calendar){
+
+    public void deleteAlarm(int id)
+    {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(id);
+    }
+
+    public void creatEvent(EditText title, EditText location, EditText description, long millis){
         if (Build.VERSION.SDK_INT >= 14) {
             Intent intent = new Intent(Intent.ACTION_INSERT)
                     .setData(CalendarContract.Events.CONTENT_URI)
-                   .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendar.getInstance().getTimeInMillis())
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, millis)
                     .putExtra(CalendarContract.Events.TITLE, title.getText().toString())
                     .putExtra(CalendarContract.Events.DESCRIPTION, description.getText().toString())
                     .putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString())

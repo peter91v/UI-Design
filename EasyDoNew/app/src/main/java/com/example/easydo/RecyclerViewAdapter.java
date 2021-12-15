@@ -1,6 +1,8 @@
 package com.example.easydo;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,13 +98,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //priority
         switch (taskList.get(position).getPriority()){
             case 3:
-                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_red));
+                holder.taskPriority.setBackgroundColor(ContextCompat.getColor(taskContext, R.color.priority_red));
                 break;
             case 2:
-                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_yellow));
+                holder.taskPriority.setBackgroundColor(ContextCompat.getColor(taskContext, R.color.priority_yellow));
                 break;
             case 1:
-                holder.taskPriority.getDrawable().setTint(ContextCompat.getColor(taskContext, R.color.priority_green));
+                holder.taskPriority.setBackgroundColor(ContextCompat.getColor(taskContext, R.color.priority_green));
             default:
                 break;
         }
@@ -179,7 +181,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteTaskListEntry(position);
+                AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AppCompatAlertDialogStyle)
+                        .setTitle("Do you want to delete this task?")
+                        .setCancelable(true)
+                        .setPositiveButton(v.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteTaskListEntry(position);
+
+                            }
+                        })
+                        .setNegativeButton(v.getResources().getString(R.string.no),  new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(v.getResources().getColor(R.color.white));
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(v.getResources().getColor(R.color.white));
             }
         });
 
@@ -221,7 +243,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageButton taskDelete;
         ImageView taskPriority;
         TextView taskDeadlineTime;
-
+        ImageView taskArrow;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -236,6 +258,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskDelete = itemView.findViewById(R.id.taskDelete);
             taskPriority = itemView.findViewById(R.id.taskPriority);
             taskDeadlineTime = itemView.findViewById(R.id.taskDeadlineTime);
+            taskArrow = itemView.findViewById(R.id.arrow);
         }
     }
 }
