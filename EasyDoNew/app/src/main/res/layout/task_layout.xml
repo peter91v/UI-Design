@@ -20,10 +20,11 @@
         android:id="@+id/taskCheckBox"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="?android:attr/listChoiceIndicatorMultiple"
         android:layout_toEndOf="@id/taskPriority"
+        android:background="?android:attr/listChoiceIndicatorMultiple"
         android:button="@null"
-        android:textColorHighlight="@color/white" />
+        android:textColorHighlight="@color/white"
+        android:backgroundTint="@color/white"/>
 
     <TextView
         android:id="@+id/taskTitle"

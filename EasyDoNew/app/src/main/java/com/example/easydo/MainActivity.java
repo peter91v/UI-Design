@@ -33,6 +33,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private static TaskDBHelper easDoDBHelper;
     private static TaskManager taskManager;
     private BottomNavigationView bottomNavigationView;
-
+    int reqID= 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,10 +189,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Alarm.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id ,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reqID ,intent,0);
         //Calendar calendar = Calendar.getInstance();
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, millis, AlarmManager.INTERVAL_DAY, pendingIntent);
+        //alarmManager.getNextAlarmClock();
 
+        Calendar now= Calendar.getInstance();
+        Date currentTime = Calendar.getInstance().getTime();
+        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
+        Log.d("TIME from Calendar", currentDateTimeString);
+//test to set time 1500ms in future
+        now.setTimeInMillis(now.getTimeInMillis()+1500);
+        currentTime.setTime(currentTime.getTime()+1500);
+        currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
+        //Log.d("TIME from Calendar+1500ms", currentDateTimeString);
+        //Toast.makeText(MainActivity.this,"Setting alarm for "+now.getTime().toString()+" and id: "+n.getId() , Toast.LENGTH_LONG).show();
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, currentTime.getTime() , pendingIntent);
+        reqID++;
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
 

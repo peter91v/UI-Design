@@ -153,10 +153,16 @@ public class AddNewTaskFragment extends Fragment {
                                     long millis = calendar.getTimeInMillis();
 
                                     ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, millis);
-                                    if (editTextDate.equals("") || editTextDate == null)
+                                    if (!editTextDate.equals("") || editTextDate != null)
+                                    {
+                                        if(year != 0 && month != 0 && day != 0 && hours!= 0 && minutes != 0)
+                                        {
                                         calendar.set(year,month,day,hours,minutes,0);
-                                    ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-                                    id++;
+
+                                        ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
+                                        id++;
+                                        }
+                                    }
                                     addNewTask.setEnabled(true);
                                     mainView.findViewById(R.id.fab).setVisibility(View.VISIBLE);
                                     destroyFragment();
@@ -177,7 +183,8 @@ public class AddNewTaskFragment extends Fragment {
                                         calendar.set(year,month,day,hours,minutes,0);
                                         long millis = calendar.getTimeInMillis();
                                         ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-                                        id++;
+                                        //DatenbankID
+                                        //id++;
                                         }
                                     }
 
