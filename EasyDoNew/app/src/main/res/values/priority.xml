@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="programming_languages">
+    <string-array name="priorities">
         <item>keine</item>
         <item>unwichtig</item>
         <item>Wichtig</item>

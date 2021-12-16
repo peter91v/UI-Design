@@ -52,11 +52,15 @@ public class AddNewTaskFragment extends Fragment {
     private Spinner editDropDownPriority;
     private Calendar calendar;
     FloatingActionButton addNewTask;
-    public AddNewTaskFragment() {}
+
+    public AddNewTaskFragment() {
+    }
+
     public AddNewTaskFragment(Task newTask) {
         taskData = newTask;
         editMode = true;
     }
+
     int day;
     int month;
     int year;
@@ -64,16 +68,17 @@ public class AddNewTaskFragment extends Fragment {
     int minutes;
     int id = 0;
     AppBarMainBinding mainActivityBidning;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.app_bar_main, container, false);
         addNewTask = mainView.findViewById(R.id.fab);
-        View view = inflater.inflate(R.layout.fragment_addtask, container,false);
+        View view = inflater.inflate(R.layout.fragment_addtask, container, false);
         editTextTitle = view.findViewById(R.id.edit_task_title);
         editTextDate = view.findViewById(R.id.edit_task_date);
         editTextTime = view.findViewById(R.id.edit_task_time);
-        editTextLocation =view.findViewById(R.id.edit_task_location);
+        editTextLocation = view.findViewById(R.id.edit_task_location);
         editTextDescription = view.findViewById(R.id.edit_task_description);
         buttonSave = view.findViewById(R.id.button_save);
         buttonCancel = view.findViewById(R.id.button_cancel);
@@ -86,7 +91,7 @@ public class AddNewTaskFragment extends Fragment {
         editTextLocation.setText(taskData.getLocation());
         editTextDescription.setText(taskData.getDescription());
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.programming_languages,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.priorities, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editDropDownPriority.setAdapter(adapter);
 
@@ -99,9 +104,9 @@ public class AddNewTaskFragment extends Fragment {
                 int pickerDay = calendar.get(Calendar.DAY_OF_MONTH);
                 int pickerMonth = calendar.get(Calendar.MONTH);
                 int pickerYear = calendar.get(Calendar.YEAR);
-          //      calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-          //      calendar.set(Calendar.MONTH, month);
-         //       calendar.set(Calendar.DAY_OF_MONTH, day);
+                //      calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                //      calendar.set(Calendar.MONTH, month);
+                //       calendar.set(Calendar.DAY_OF_MONTH, day);
                 Context context1 = getContext();
                 datePickerDialog = new DatePickerDialog(context1, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -131,7 +136,7 @@ public class AddNewTaskFragment extends Fragment {
                         minutes = pickerMinutes;
                         hours = pickerHours;
                     }
-                },pickerHours,minutes,true);
+                }, pickerHours, minutes, true);
                 timePickerDialog.show();
 
             }
@@ -143,24 +148,21 @@ public class AddNewTaskFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
-                            .setTitle(getResources().getString(R.string.title))
+                            .setTitle(getResources().getString(R.string.alarmdialog_title))
 
-                            .setMessage(getResources().getString(R.string.message))
+                            .setMessage(getResources().getString(R.string.alarmdialog_message))
                             .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
                                     long millis = calendar.getTimeInMillis();
 
-                                    ((MainActivity)getActivity()).creatEvent(editTextTitle,editTextLocation,editTextDescription, millis);
-                                    if (!editTextDate.equals("") || editTextDate != null)
-                                    {
-                                        if(year != 0 && month != 0 && day != 0 && hours!= 0 && minutes != 0)
-                                        {
-                                        calendar.set(year,month,day,hours,minutes,0);
+                                    ((MainActivity) getActivity()).creatEvent(editTextTitle, editTextLocation, editTextDescription, millis);
+                                    if (!editTextDate.equals("") || editTextDate != null) {
+                                        if (year != 0 && month != 0 && day != 0 && hours != 0 && minutes != 0) {
+                                            calendar.set(year, month, day, hours, minutes, 0);
 
-                                        ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-                                        id++;
+                                            ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
                                         }
                                     }
                                     addNewTask.setEnabled(true);
@@ -171,24 +173,21 @@ public class AddNewTaskFragment extends Fragment {
 
                                 }
                             })
-                            .setNegativeButton(getResources().getString(R.string.no),  new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     MainActivity.getTaskManager().addTask(createTask(), true);
-                                    if (!editTextDate.equals("") || editTextDate != null)
-                                    {
-                                        if(year != 0 && month != 0 && day != 0 && hours!= 0 && minutes != 0)
-                                        {
-                                        calendar.set(year,month,day,hours,minutes,0);
-                                        long millis = calendar.getTimeInMillis();
-                                        ((MainActivity)getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-                                        //DatenbankID
-                                        //id++;
+                                    if (!editTextDate.equals("") || editTextDate != null) {
+                                        if (year != 0 && month != 0 && day != 0 && hours != 0 && minutes != 0) {
+                                            calendar.set(year, month, day, hours, minutes, 0);
+                                            long millis = calendar.getTimeInMillis();
+                                            ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
+
                                         }
                                     }
 
-                                         destroyFragment();
+                                    destroyFragment();
                                     addNewTask.setEnabled(true);
                                     addNewTask.setVisibility(View.VISIBLE);
                                 }
@@ -201,8 +200,7 @@ public class AddNewTaskFragment extends Fragment {
                     addNewTask.setEnabled(true);
                     addNewTask.setVisibility(View.VISIBLE);
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     CharSequence text = e.getMessage();
                     int duration = Toast.LENGTH_LONG;
                     Context context = getContext();
@@ -220,7 +218,7 @@ public class AddNewTaskFragment extends Fragment {
                 editTextLocation.setText("");
                 editTextDescription.setText("");
                 editTextTime.setText("");
-                if(editMode)
+                if (editMode)
                     MainActivity.getTaskManager().addTask(taskData, true);
                 destroyFragment();
                 addNewTask.setVisibility(View.VISIBLE);
@@ -229,21 +227,20 @@ public class AddNewTaskFragment extends Fragment {
         return view;
     }
 
-    private void destroyFragment()
-    {
+    private void destroyFragment() {
         FragmentManager fragmentManager = getParentFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(MainActivity.getTaskManager().getTodoList())).commit();
         fragmentManager.beginTransaction().remove(this).commit();
     }
 
-    private Task createTask() throws RuntimeException{
+    private Task createTask() throws RuntimeException {
         String title = editTextTitle.getText().toString();
         String deadline = editTextDate.getText().toString();
         String deadlineTime = editTextTime.getText().toString();
         String location = editTextLocation.getText().toString();
         String description = editTextDescription.getText().toString();
         short priority;
-        switch (editDropDownPriority.getSelectedItemPosition()){
+        switch (editDropDownPriority.getSelectedItemPosition()) {
 
             case 1:
                 priority = 1;
@@ -260,23 +257,22 @@ public class AddNewTaskFragment extends Fragment {
 
         Task newTask;
 
-        if (!title.trim().isEmpty()){
+        if (!title.trim().isEmpty()) {
             newTask = new Task.TaskBuilder(title).createTask();
             newTask.setId(CounterHelper.getInstance().getId());
-        }
-        else
+        } else
             throw new RuntimeException(getResources().getString(R.string.no_title));
-        if(!deadline.isEmpty() || !deadlineTime.isEmpty()){
-            if(deadline.isEmpty())
+        if (!deadline.isEmpty() || !deadlineTime.isEmpty()) {
+            if (deadline.isEmpty())
                 newTask.setDeadline(deadlineTime, "HH:mm");
-            else if(deadlineTime.isEmpty())
+            else if (deadlineTime.isEmpty())
                 newTask.setDeadline(deadline, "dd.MM.yyyy");
             else
                 newTask.setDeadline(deadline + deadlineTime, "dd.MM.yyyyHH:mm");
         }
-        if(!location.isEmpty())
+        if (!location.isEmpty())
             newTask.setLocation(location);
-        if(!description.isEmpty())
+        if (!description.isEmpty())
             newTask.setDescription(description);
 
         newTask.setPriority(priority);

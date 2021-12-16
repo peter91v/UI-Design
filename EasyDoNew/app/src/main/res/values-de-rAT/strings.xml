@@ -28,8 +28,8 @@
     <!--Runtime Error Texts for toasts-->
     <string name="no_title">Kein Titel angegeben</string>
     <!--Alarmdialog -->
-    <string name="title">Möchten Sie diese Aufgabe in Ihrem Kalender speichern?</string>
-    <string name="message">Drücken Sie ja, um die Aufgabe in Ihrem Kalender und in Ihrer App zu speichern.\nDrücken Sie nein, um sie nur in Ihrer App zu speichern.</string>
+    <string name="alarmdialog_title">Möchten Sie diese Aufgabe in Ihrem Kalender speichern?</string>
+    <string name="alarmdialog_message">Drücken Sie ja, um die Aufgabe in Ihrem Kalender und in Ihrer App zu speichern.\nDrücken Sie nein, um sie nur in Ihrer App zu speichern.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 </resources>

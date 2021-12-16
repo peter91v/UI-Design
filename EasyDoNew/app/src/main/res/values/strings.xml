@@ -28,8 +28,8 @@
     <string name="no_title">No title given</string>
 
     <!--Alarmdialog -->
-    <string name="title">Do you want to save this task in your calendar?</string>
-    <string name="message">Press yes to save your task in your calendar and in your app.\nPress no to save it only in your app.</string>
+    <string name="alarmdialog_title">Do you want to save this task in your calendar?</string>
+    <string name="alarmdialog_message">Press yes to save your task in your calendar and in your app.\nPress no to save it only in your app.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 </resources>
