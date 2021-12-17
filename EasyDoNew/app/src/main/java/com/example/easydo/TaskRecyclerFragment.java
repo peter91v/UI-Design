@@ -11,12 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.easydo.dao.Task;
 
 import java.util.ArrayList;
 
-public class TaskRecyclerFragment extends Fragment
-{
+public class TaskRecyclerFragment extends Fragment {
     private static final String TAG = "TaskRecyclerFragment";
     private ArrayList<Task> tasks;
 

@@ -14,9 +14,9 @@
         android:id="@+id/host_fragment_content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginTop="55dp"
         android:layout_marginBottom="55dp"
+        android:layout_weight="1"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="54dp" />
 

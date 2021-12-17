@@ -31,7 +31,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.CounterHelper;
 import com.example.easydo.dao.Task;
-import com.example.easydo.databinding.AppBarMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -61,13 +60,12 @@ public class AddNewTaskFragment extends Fragment {
         editMode = true;
     }
 
-    private int day= 0;
-    private int month= 0;
-    private int year= 0;
-    private int hours= 0;
-    private int minutes= 0;
+    private int day = 0;
+    private int month = 0;
+    private int year = 0;
+    private int hours = 0;
+    private int minutes = 0;
     private int id = 0;
-    AppBarMainBinding mainActivityBidning;
 
     @Nullable
     @Override
@@ -147,11 +145,11 @@ public class AddNewTaskFragment extends Fragment {
             //do not
             public void onClick(View v) {
                 try {
-                    if ((year == 0 && month == 0 && day == 0) ||( hours == 0 && minutes == 0)) {
+                    if ((year == 0 && month == 0 && day == 0) || (hours == 0 && minutes == 0)) {
                         MainActivity.getTaskManager().addTask(createTask(), true);
                         destroyFragment();
 
-                    }else {
+                    } else {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
                                 .setTitle(getResources().getString(R.string.alarmdialog_title))
 
@@ -164,11 +162,9 @@ public class AddNewTaskFragment extends Fragment {
 
                                         ((MainActivity) getActivity()).creatEvent(editTextTitle, editTextLocation, editTextDescription, millis);
 
-                                            calendar.set(year, month, day, hours, minutes, 0);
+                                        calendar.set(year, month, day, hours, minutes, 0);
 
-                                            ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-
-
+                                        ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
 
                                         destroyFragment();
 

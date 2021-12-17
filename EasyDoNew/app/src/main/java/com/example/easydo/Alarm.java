@@ -19,18 +19,19 @@ import java.util.concurrent.TimeUnit;
 public class Alarm extends BroadcastReceiver {
     private String title;
     private int id;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
             id = intent.getIntExtra("id", 1);
             title = intent.getStringExtra("title");
-            reciverAlarm(id, context,intent,title,"message");
+            reciverAlarm(id, context, intent, title, "message");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void reciverAlarm(int id , Context context,Intent intent,String title,String msg) throws InterruptedException {
+    public void reciverAlarm(int id, Context context, Intent intent, String title, String msg) throws InterruptedException {
         //Intent intent1 = new Intent(context, MainActivity.class);
         //Context context1 = new MainActivity().getBaseContext();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

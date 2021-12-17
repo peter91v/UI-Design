@@ -15,17 +15,21 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.easydo.dao.Task;
+
 import java.util.ArrayList;
 
-/**Adapts the listitem to match our tasklayout*/
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
-{
+/**
+ * Adapts the listitem to match our tasklayout
+ */
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
     private final ArrayList<Task> taskList;
@@ -96,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //time
         holder.taskDeadlineTime.setText(taskList.get(position).getDeadline("HH:mm"));
         //priority
-        switch (taskList.get(position).getPriority()){
+        switch (taskList.get(position).getPriority()) {
             case 3:
                 holder.taskPriority.setBackgroundColor(ContextCompat.getColor(taskContext, R.color.priority_red));
                 break;
@@ -109,7 +113,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 break;
         }
         //checkbox
-        if(taskList.get(position).isDone())
+        if (taskList.get(position).isDone())
             holder.taskCheckbox.setChecked(true);
 
         holder.taskCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -118,13 +122,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.d(TAG, "onCheckboxChanged on item: " + taskList.get(holder.getAdapterPosition()).getTitle() + " Position: " + holder.getAdapterPosition());
 
                 Task completedTask = taskList.get(holder.getAdapterPosition());
-                if(isChecked){
+                if (isChecked) {
                     completedTask.setDone(true);
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), true);
                     MainActivity.getTaskManager().addTask(completedTask, false);
 
-                }
-                else {
+                } else {
                     completedTask.setDone(false);
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), false);
                     MainActivity.getTaskManager().addTask(completedTask, true);
@@ -132,8 +135,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 notifyItemRemoved(position);
             }
         });
-
-
 
 
         //expand mechanism
@@ -152,22 +153,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //location
         holder.taskLocation.setText(taskList.get(position).getLocation());
-        holder.taskLocation.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE: View.GONE);
+        holder.taskLocation.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE : View.GONE);
         holder.taskLocation.setActivated(isExpanded);
-        holder.taskLocationIcon.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE: View.GONE);
+        holder.taskLocationIcon.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE : View.GONE);
 
         //description
         holder.taskDescription.setText(taskList.get(position).getDescription());
-        holder.taskDescription.setVisibility(isExpanded && !taskList.get(position).getDescription().isEmpty() ? View.VISIBLE: View.GONE);
+        holder.taskDescription.setVisibility(isExpanded && !taskList.get(position).getDescription().isEmpty() ? View.VISIBLE : View.GONE);
         holder.taskDescription.setActivated(isExpanded);
 
         //edit Button
-        holder.taskEdit.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskEdit.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.taskEdit.setActivated(isExpanded);
         holder.taskEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = ((AppCompatActivity)taskContext).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((AppCompatActivity) taskContext).getSupportFragmentManager();
 
                 fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment(taskList.get(position))).addToBackStack("edit task").commit();
                 deleteTaskListEntry(position);
@@ -176,7 +177,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         //delete Button
-        holder.taskDelete.setVisibility(isExpanded ? View.VISIBLE: View.GONE);
+        holder.taskDelete.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.taskDelete.setActivated(isExpanded);
         holder.taskDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +192,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 //MainActivity.deleteAlarm(position);
                             }
                         })
-                        .setNegativeButton(v.getResources().getString(R.string.no),  new DialogInterface.OnClickListener() {
+                        .setNegativeButton(v.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -205,12 +206,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
-        if(isExpanded)
+        if (isExpanded)
             oldExpandedItem = expandedItem;
     }
 
 
-    private void deleteTaskListEntry(int position){
+    private void deleteTaskListEntry(int position) {
         MainActivity.getTaskManager().deleteTask(position, !taskList.get(position).isDone());
 
         notifyItemRemoved(position);
@@ -228,10 +229,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout taskLayout;
         CheckBox taskCheckbox;
         TextView taskTitle;

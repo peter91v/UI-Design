@@ -24,16 +24,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.easydo.dao.Task;
-import com.example.easydo.dao.TaskContract;
 import com.example.easydo.dao.TaskDBHelper;
-import com.example.easydo.databinding.AppBarMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static TaskDBHelper easDoDBHelper;
     private static TaskManager taskManager;
     private BottomNavigationView bottomNavigationView;
-    int reqID= 0;
+    int reqID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +59,10 @@ public class MainActivity extends AppCompatActivity {
             setLocale(getResources().getConfiguration().locale.toString());
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
-            if(onTodoList)
-            {
+            if (onTodoList) {
                 fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).commit();
                 toolbar.setText(getResources().getString(R.string.todo));
-            }
-            else{
+            } else {
                 fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).commit();
                 toolbar.setText(getResources().getString(R.string.done));
             }
@@ -90,23 +84,22 @@ public class MainActivity extends AppCompatActivity {
             settingsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isSettings){
+                    if (isSettings) {
                         settingsButton.setImageResource(R.drawable.ic_arrow_left_solid);
                         fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new Settings()).addToBackStack("settings view").commit();
                         toolbar.setText(getResources().getString(R.string.settings));
                         addNewTask.setVisibility(View.GONE);
                         addNewTask.setEnabled(false);
                         isSettings = false;
-                    }
-                    else{
+                    } else {
                         addNewTask.setVisibility(View.VISIBLE);
                         addNewTask.setEnabled(true);
                         settingsButton.setImageResource(R.drawable.ic_settings_black);
                         isSettings = true;
-                        if(onTodoList){
+                        if (onTodoList) {
                             toolbar.setText(getResources().getString(R.string.todo));
                             fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).addToBackStack("todo view").commit();
-                        }else{
+                        } else {
                             toolbar.setText(getResources().getString(R.string.done));
                             fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("todo view").commit();
                         }
@@ -144,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
             CharSequence text = e.getMessage();
             int duration = Toast.LENGTH_LONG;
 
@@ -153,43 +146,50 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: " + e.getStackTrace());
         }
     }
-    public void setLocale (String lang) {
+
+    public void setLocale(String lang) {
         Configuration configuration = contextMain.getResources().getConfiguration();
         Locale locale = new Locale(lang);
 
-        if(!configuration.locale.equals(locale)){
+        if (!configuration.locale.equals(locale)) {
             Locale.setDefault(locale);
             configuration.locale = locale;
-            getBaseContext().getResources().updateConfiguration(configuration,getBaseContext().getResources().getDisplayMetrics());
+            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
             recreate();
         }
     }
+
     public static TaskManager getTaskManager() {
         return taskManager;
     }
+
     public static UiModeManager getUiModeManager() {
         return uiModeManager;
     }
-    public static Context getMainContext() {return contextMain;}
 
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    public static Context getMainContext() {
+        return contextMain;
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence title = "Todo app channel";
             String description = "Todo app channel";
             int priority = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel("Alarm", title,priority);
+            NotificationChannel notificationChannel = new NotificationChannel("Alarm", title, priority);
             notificationChannel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
-    public void setAlarm(int id, String title, long millis){
+
+    public void setAlarm(int id, String title, long millis) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, Alarm.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reqID ,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reqID, intent, 0);
         //Calendar calendar = Calendar.getInstance();
         //alarmManager.getNextAlarmClock();
 
@@ -204,18 +204,17 @@ public class MainActivity extends AppCompatActivity {
         //Log.d("TIME from Calendar+1500ms", currentDateTimeString);
         //Toast.makeText(MainActivity.this,"Setting alarm for "+now.getTime().toString()+" and id: "+n.getId() , Toast.LENGTH_LONG).show();*/
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, millis , pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
         reqID++;
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
 
-    public static void deleteAlarm(int id)
-    {
+    public static void deleteAlarm(int id) {
         NotificationManager notificationManager = (NotificationManager) getMainContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(id);
     }
 
-    public void creatEvent(EditText title, EditText location, EditText description, long millis){
+    public void creatEvent(EditText title, EditText location, EditText description, long millis) {
         if (Build.VERSION.SDK_INT >= 14) {
             Intent intent = new Intent(Intent.ACTION_INSERT)
                     .setData(CalendarContract.Events.CONTENT_URI)

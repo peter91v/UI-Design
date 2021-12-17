@@ -8,8 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Task implements Comparable<Task>, Serializable
-{
+public class Task implements Comparable<Task>, Serializable {
 
     private int id;
     private String title = "";
@@ -43,7 +42,9 @@ public class Task implements Comparable<Task>, Serializable
         this.title = title;
     }
 
-    /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters) (HH = hour chars) (mm = minute chars)*/
+    /**
+     * Format characters (dd = day characters) (MM = month characters) (yyyy = year characters) (HH = hour chars) (mm = minute chars)
+     */
     public String getDeadline(String dateFormat) {
         if (deadline == null)
             return "";
@@ -51,14 +52,16 @@ public class Task implements Comparable<Task>, Serializable
         return simpleDateFormat.format(deadline);
     }
 
-    /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters) (HH = hour chars) (mm = minute chars)
-     * @apiNote if date format could not be parsed nothing will be set*/
+    /**
+     * Format characters (dd = day characters) (MM = month characters) (yyyy = year characters) (HH = hour chars) (mm = minute chars)
+     *
+     * @apiNote if date format could not be parsed nothing will be set
+     */
     public void setDeadline(String deadline, String dateFormat) {
         try {
             SimpleDateFormat format = new SimpleDateFormat(dateFormat);
             this.deadline = format.parse(deadline);
-        }
-        catch (ParseException pe) {
+        } catch (ParseException pe) {
             Log.d("Task.java", "withDeadline: ParseException");
         }
     }
@@ -86,7 +89,7 @@ public class Task implements Comparable<Task>, Serializable
     public void setDone(boolean done) {
         this.done = done;
     }
-    
+
     public short getPriority() {
         return priority;
     }
@@ -97,12 +100,12 @@ public class Task implements Comparable<Task>, Serializable
 
     @Override
     public int compareTo(Task o) {
-        if(this.priority.compareTo(o.priority) != 0)
+        if (this.priority.compareTo(o.priority) != 0)
             return this.priority.compareTo(o.priority) * -1; //higher priority should be shown first
 
-        if(this.deadline == null)
+        if (this.deadline == null)
             return 1;
-        else if(o.deadline == null)
+        else if (o.deadline == null)
             return -1;
         else
             return this.deadline.compareTo(o.deadline);
@@ -121,21 +124,23 @@ public class Task implements Comparable<Task>, Serializable
             this.title = title;
         }
 
-        /**Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
-         * @return  null if date format could not be parsed*/
-        public TaskBuilder withDeadline(String deadline, String dateFormat){
+        /**
+         * Format characters (dd = day characters) (MM = month characters) (yyyy = year characters)
+         *
+         * @return null if date format could not be parsed
+         */
+        public TaskBuilder withDeadline(String deadline, String dateFormat) {
             try {
                 SimpleDateFormat format = new SimpleDateFormat(dateFormat);
                 this.deadline = format.parse(deadline);
                 return this;
-            }
-            catch (ParseException pe) {
+            } catch (ParseException pe) {
                 Log.d("Task.java", "withDeadline: ParseException");
             }
             return null;
         }
 
-        public TaskBuilder withId(int id){
+        public TaskBuilder withId(int id) {
             this.id = id;
             return this;
         }
@@ -155,8 +160,7 @@ public class Task implements Comparable<Task>, Serializable
             return this;
         }
 
-        public Task createTask()
-        {
+        public Task createTask() {
             return new Task(this);
         }
     }

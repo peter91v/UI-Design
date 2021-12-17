@@ -19,17 +19,17 @@ public class TaskManager {
     private final SQLiteDatabase writeDB;
 
 
-    public TaskManager(SQLiteDatabase readDB, SQLiteDatabase writeDB) throws Exception{
+    public TaskManager(SQLiteDatabase readDB, SQLiteDatabase writeDB) throws Exception {
         this.readDB = readDB;
         this.writeDB = writeDB;
         Cursor taskList = getAllTasks();
 
-        if(taskList.moveToLast()) {
+        if (taskList.moveToLast()) {
             int colIndex = taskList.getColumnIndex(TaskContract.TaskEntry._ID);
             CounterHelper.getInstance(taskList.getInt(colIndex));
         }
 
-        if(taskList.moveToFirst()){
+        if (taskList.moveToFirst()) {
             do {
                 int id = taskList.getInt(taskList.getColumnIndex(TaskContract.TaskEntry._ID));
                 String title = taskList.getString(taskList.getColumnIndex(TaskContract.TaskEntry.COLUMN_TITLE));
@@ -42,21 +42,21 @@ public class TaskManager {
                 Task task = new Task.TaskBuilder(title).createTask();
                 task.setId(id);
 
-                if(!deadline.isEmpty())
+                if (!deadline.isEmpty())
                     task.setDeadline(deadline, "dd.MM.yyyyHH:mm");
-                if(!location.isEmpty())
+                if (!location.isEmpty())
                     task.setLocation(location);
-                if(!description.isEmpty())
+                if (!description.isEmpty())
                     task.setDescription(description);
-                if(priority != 0)
+                if (priority != 0)
                     task.setPriority((short) priority);
                 task.setDone(done != 0);
 
-                if(task.isDone())
+                if (task.isDone())
                     doneList.add(task);
                 else
                     todoList.add(task);
-            }while(taskList.moveToNext());
+            } while (taskList.moveToNext());
 
 
             sortTasks(false);
@@ -84,23 +84,21 @@ public class TaskManager {
         return doneList;
     }
 
-    public Task getTask(int index, boolean onTodoList)
-    {
-        if(onTodoList)
+    public Task getTask(int index, boolean onTodoList) {
+        if (onTodoList)
             return todoList.get(index);
         else
             return doneList.get(index);
     }
 
-    public void addTask(Task todo, boolean onTodoList){
+    public void addTask(Task todo, boolean onTodoList) {
 
         int taskId = todo.getId();
 
-        if(onTodoList){
+        if (onTodoList) {
             todoList.add(todo);
             sortTasks(true);
-        }
-        else{
+        } else {
             doneList.add(todo);
             sortTasks(false);
         }
@@ -119,15 +117,16 @@ public class TaskManager {
         writeDB.insert(TaskContract.TaskEntry.TABLE_NAME, null, newTaskVals);
     }
 
-    /**id = position in todo/donelist*/
+    /**
+     * id = position in todo/donelist
+     */
     public void deleteTask(int id, boolean onTodoList) {
         int deleteId;
 
-        if(onTodoList){
+        if (onTodoList) {
             deleteId = todoList.get(id).getId();
             todoList.remove(id);
-        }
-        else{
+        } else {
             deleteId = doneList.get(id).getId();
             doneList.remove(id);
         }
@@ -137,8 +136,8 @@ public class TaskManager {
 
     }
 
-    public void sortTasks(boolean onTodoList){
-        if(onTodoList)
+    public void sortTasks(boolean onTodoList) {
+        if (onTodoList)
             Collections.sort(todoList);
         else
             Collections.sort(doneList);

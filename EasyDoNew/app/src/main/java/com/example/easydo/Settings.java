@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class Settings extends Fragment {
     private TextView textViewLanguage;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
