@@ -34,4 +34,9 @@
     <string name="yes">Igen</string>
     <string name="no">Nem</string>
 
+    <!-- Priorities -->
+    <string name="none">Nincs</string>
+    <string name="low">Nem fontos</string>
+    <string name="medium">Fontos</string>
+    <string name="high">Nagyon fontos</string>
 </resources>

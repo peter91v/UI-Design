@@ -99,7 +99,7 @@ public class AddNewTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                int pickerDay = calendar.get(Calendar.DAY_OF_MONTH);
+                int pickerDay = calendar.get(calendar.DAY_OF_MONTH);
                 int pickerMonth = calendar.get(Calendar.MONTH);
                 int pickerYear = calendar.get(Calendar.YEAR);
                 //      calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));

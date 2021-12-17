@@ -32,4 +32,10 @@
     <string name="alarmdialog_message">Drücken Sie ja, um die Aufgabe in Ihrem Kalender und in Ihrer App zu speichern.\nDrücken Sie nein, um sie nur in Ihrer App zu speichern.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+
+    <!-- Priorities -->
+    <string name="none">Keine</string>
+    <string name="low">Unwichtig (Grüne markierung)</string>
+    <string name="medium">Wichtig (Gelbe markierung)</string>
+    <string name="high">Sehr wichtig (Rote markierung)</string>
 </resources>

@@ -32,4 +32,12 @@
     <string name="alarmdialog_message">Press yes to save your task in your calendar and in your app.\nPress no to save it only in your app.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- Priorities -->
+    <string name="none">No</string>
+    <string name="low">Unimportant (Green mark)</string>
+    <string name="medium">Important (Yellow mark)</string>
+    <string name="high">Very important (Red mark)</string>
+
+
 </resources>
