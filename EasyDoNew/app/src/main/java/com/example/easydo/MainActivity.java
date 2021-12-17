@@ -193,25 +193,25 @@ public class MainActivity extends AppCompatActivity {
         //Calendar calendar = Calendar.getInstance();
         //alarmManager.getNextAlarmClock();
 
-        Calendar now= Calendar.getInstance();
+        /*Calendar now= Calendar.getInstance();
         Date currentTime = Calendar.getInstance().getTime();
         String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
         Log.d("TIME from Calendar", currentDateTimeString);
-//test to set time 1500ms in future
+        //test to set time 1500ms in future
         now.setTimeInMillis(now.getTimeInMillis()+1500);
         currentTime.setTime(currentTime.getTime()+1500);
         currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
         //Log.d("TIME from Calendar+1500ms", currentDateTimeString);
-        //Toast.makeText(MainActivity.this,"Setting alarm for "+now.getTime().toString()+" and id: "+n.getId() , Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this,"Setting alarm for "+now.getTime().toString()+" and id: "+n.getId() , Toast.LENGTH_LONG).show();*/
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, currentTime.getTime() , pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, millis , pendingIntent);
         reqID++;
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
 
-    public void deleteAlarm(int id)
+    public static void deleteAlarm(int id)
     {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getMainContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(id);
     }
 

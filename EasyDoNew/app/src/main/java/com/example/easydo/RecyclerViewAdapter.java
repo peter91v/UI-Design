@@ -188,7 +188,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteTaskListEntry(position);
-
+                                //MainActivity.deleteAlarm(position);
                             }
                         })
                         .setNegativeButton(v.getResources().getString(R.string.no),  new DialogInterface.OnClickListener() {

@@ -61,12 +61,12 @@ public class AddNewTaskFragment extends Fragment {
         editMode = true;
     }
 
-    int day;
-    int month;
-    int year;
-    int hours;
-    int minutes;
-    int id = 0;
+    private int day= 0;
+    private int month= 0;
+    private int year= 0;
+    private int hours= 0;
+    private int minutes= 0;
+    private int id = 0;
     AppBarMainBinding mainActivityBidning;
 
     @Nullable
@@ -147,59 +147,53 @@ public class AddNewTaskFragment extends Fragment {
             //do not
             public void onClick(View v) {
                 try {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
-                            .setTitle(getResources().getString(R.string.alarmdialog_title))
+                    if ((year == 0 && month == 0 && day == 0) ||( hours == 0 && minutes == 0)) {
+                        MainActivity.getTaskManager().addTask(createTask(), true);
+                        destroyFragment();
 
-                            .setMessage(getResources().getString(R.string.alarmdialog_message))
-                            .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.getTaskManager().addTask(createTask(), true);
-                                    long millis = calendar.getTimeInMillis();
+                    }else {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle)
+                                .setTitle(getResources().getString(R.string.alarmdialog_title))
 
-                                    ((MainActivity) getActivity()).creatEvent(editTextTitle, editTextLocation, editTextDescription, millis);
-                                    if (!editTextDate.equals("") || editTextDate != null) {
-                                        if (year != 0 && month != 0 && day != 0 && hours != 0 && minutes != 0) {
+                                .setMessage(getResources().getString(R.string.alarmdialog_message))
+                                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        MainActivity.getTaskManager().addTask(createTask(), true);
+                                        long millis = calendar.getTimeInMillis();
+
+                                        ((MainActivity) getActivity()).creatEvent(editTextTitle, editTextLocation, editTextDescription, millis);
+
                                             calendar.set(year, month, day, hours, minutes, 0);
 
                                             ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
-                                        }
+
+
+
+                                        destroyFragment();
+
                                     }
-                                    addNewTask.setEnabled(true);
-                                    mainView.findViewById(R.id.fab).setVisibility(View.VISIBLE);
-                                    destroyFragment();
-                                    addNewTask.setEnabled(true);
-                                    addNewTask.setVisibility(View.VISIBLE);
+                                })
+                                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
-                                }
-                            })
-                            .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        MainActivity.getTaskManager().addTask(createTask(), true);
 
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.getTaskManager().addTask(createTask(), true);
-                                    if (!editTextDate.equals("") || editTextDate != null) {
-                                        if (year != 0 && month != 0 && day != 0 && hours != 0 && minutes != 0) {
-                                            calendar.set(year, month, day, hours, minutes, 0);
-                                            long millis = calendar.getTimeInMillis();
-                                            ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
+                                        calendar.set(year, month, day, hours, minutes, 0);
+                                        long millis = calendar.getTimeInMillis();
+                                        ((MainActivity) getActivity()).setAlarm(id, editTextTitle.getText().toString(), millis);
 
-                                        }
+
+                                        destroyFragment();
                                     }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
 
-                                    destroyFragment();
-                                    addNewTask.setEnabled(true);
-                                    addNewTask.setVisibility(View.VISIBLE);
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
-
-                    addNewTask.setEnabled(true);
-                    addNewTask.setVisibility(View.VISIBLE);
-
+                    }
                 } catch (Exception e) {
                     CharSequence text = e.getMessage();
                     int duration = Toast.LENGTH_LONG;
@@ -231,6 +225,8 @@ public class AddNewTaskFragment extends Fragment {
         FragmentManager fragmentManager = getParentFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(MainActivity.getTaskManager().getTodoList())).commit();
         fragmentManager.beginTransaction().remove(this).commit();
+        addNewTask.setEnabled(true);
+        addNewTask.setVisibility(View.VISIBLE);
     }
 
     private Task createTask() throws RuntimeException {
