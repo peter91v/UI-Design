@@ -8,9 +8,6 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -41,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static TaskDBHelper easDoDBHelper;
     private static TaskManager taskManager;
     private BottomNavigationView bottomNavigationView;
+    private  FloatingActionButton addNewTask;
     int reqID = 0;
 
     @Override
@@ -68,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             FloatingActionButton addNewTask = findViewById(R.id.fab);
+            addNewTask.setVisibility(View.VISIBLE);
+            addNewTask.setEnabled(true);
+
             addNewTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -189,23 +190,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Alarm.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reqID, intent, 0);
-        //Calendar calendar = Calendar.getInstance();
-        //alarmManager.getNextAlarmClock();
-
-        /*Calendar now= Calendar.getInstance();
-        Date currentTime = Calendar.getInstance().getTime();
-        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
-        Log.d("TIME from Calendar", currentDateTimeString);
-        //test to set time 1500ms in future
-        now.setTimeInMillis(now.getTimeInMillis()+1500);
-        currentTime.setTime(currentTime.getTime()+1500);
-        currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(currentTime);
-        //Log.d("TIME from Calendar+1500ms", currentDateTimeString);
-        //Toast.makeText(MainActivity.this,"Setting alarm for "+now.getTime().toString()+" and id: "+n.getId() , Toast.LENGTH_LONG).show();*/
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, 0);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
-        reqID++;
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_LONG).show();
     }
 
@@ -214,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.cancel(id);
     }
 
-    public void creatEvent(EditText title, EditText location, EditText description, long millis) {
+    public void createCalenderAppEntry(EditText title, EditText location, EditText description, long millis) {
         if (Build.VERSION.SDK_INT >= 14) {
             Intent intent = new Intent(Intent.ACTION_INSERT)
                     .setData(CalendarContract.Events.CONTENT_URI)
@@ -226,5 +213,9 @@ public class MainActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    public  FloatingActionButton getNewTaskFAB(){
+        return addNewTask;
     }
 }

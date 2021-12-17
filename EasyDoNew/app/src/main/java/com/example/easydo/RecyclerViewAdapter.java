@@ -97,8 +97,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskTitle.setText(taskList.get(position).getTitle());
         //date
         holder.taskDeadline.setText(taskList.get(position).getDeadline("dd.MM.yyyy"));
+        holder.taskCalenderIcon.setVisibility(taskList.get(position).getDeadline("dd.MM.yyyy").isEmpty() ? View.GONE : View.VISIBLE);
         //time
         holder.taskDeadlineTime.setText(taskList.get(position).getDeadline("HH:mm"));
+        holder.taskClockIcon.setVisibility(taskList.get(position).getDeadline("HH:mm").isEmpty() ? View.GONE : View.VISIBLE);
         //priority
         switch (taskList.get(position).getPriority()) {
             case 3:
@@ -132,7 +134,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     MainActivity.getTaskManager().deleteTask(holder.getAdapterPosition(), false);
                     MainActivity.getTaskManager().addTask(completedTask, true);
                 }
-                notifyItemRemoved(position);
+                notifyItemRemoved(holder.getAdapterPosition());
             }
         });
 
@@ -143,14 +145,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.taskLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "Item " + taskList.get(position).getTitle() + " should expand now");
+                Log.d(TAG, "Item " + taskList.get(holder.getAdapterPosition()).getTitle() + " should expand now");
 
-                expandedItem = isExpanded ? -1 : position;
+                expandedItem = isExpanded ? -1 : holder.getAdapterPosition();
                 notifyItemChanged(oldExpandedItem);
-                notifyItemChanged(position);
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
 
+        //expand arrow
+        if(isExpanded)
+            holder.taskArrow.setImageDrawable(MainActivity.getMainContext().getDrawable(android.R.drawable.arrow_up_float));
+        else
+            holder.taskArrow.setImageDrawable(MainActivity.getMainContext().getDrawable(android.R.drawable.arrow_down_float));
         //location
         holder.taskLocation.setText(taskList.get(position).getLocation());
         holder.taskLocation.setVisibility(isExpanded && !taskList.get(position).getLocation().isEmpty() ? View.VISIBLE : View.GONE);
@@ -188,8 +195,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         .setPositiveButton(v.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteTaskListEntry(position);
-                                //MainActivity.deleteAlarm(position);
+                                deleteTaskListEntry(holder.getAdapterPosition());
+                                //MainActivity.deleteAlarm(holder.getAdapterPosition());
                             }
                         })
                         .setNegativeButton(v.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -213,7 +220,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void deleteTaskListEntry(int position) {
         MainActivity.getTaskManager().deleteTask(position, !taskList.get(position).isDone());
-
         notifyItemRemoved(position);
     }
 
@@ -242,6 +248,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView taskPriority;
         TextView taskDeadlineTime;
         ImageView taskArrow;
+        ImageView taskCalenderIcon;
+        ImageView taskClockIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -257,6 +265,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             taskPriority = itemView.findViewById(R.id.taskPriority);
             taskDeadlineTime = itemView.findViewById(R.id.taskDeadlineTime);
             taskArrow = itemView.findViewById(R.id.arrow);
+            taskCalenderIcon= itemView.findViewById(R.id.taskCalender);
+            taskClockIcon = itemView.findViewById(R.id.taskClock);
         }
     }
 }
