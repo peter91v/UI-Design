@@ -22,9 +22,9 @@
         android:layout_height="60dp"
         android:layout_toEndOf="@id/taskPriority"
         android:background="?android:attr/listChoiceIndicatorMultiple"
+        android:backgroundTint="@color/white"
         android:button="@null"
-        android:textColorHighlight="@color/white"
-        android:backgroundTint="@color/white"/>
+        android:textColorHighlight="@color/white" />
 
     <TextView
         android:id="@+id/taskTitle"
@@ -47,12 +47,13 @@
         android:paddingHorizontal="23dp"
 
         android:src="@drawable/ic_calendar_alt_solid" />
+
     <ImageView
         android:id="@+id/taskClock"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:layout_toStartOf="@+id/taskDeadline"
         android:layout_below="@id/taskCalender"
+        android:layout_toStartOf="@+id/taskDeadline"
         android:contentDescription="calenderIcon"
         android:paddingHorizontal="23dp"
         android:src="@drawable/ic_clock_solid" />
@@ -66,13 +67,14 @@
         android:gravity="center_vertical"
         android:text="99.99.9999"
         android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentEnd="true"
-        android:paddingHorizontal="5dp"
         android:contentDescription="calenderIcon"
+        android:paddingHorizontal="5dp"
         android:src="@android:drawable/arrow_down_float" />
 
     <TextView
