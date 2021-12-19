@@ -1,5 +1,8 @@
 package com.example.easydo;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -9,10 +12,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,7 +40,6 @@ public class AddNewTaskFragment extends Fragment {
     private Button buttonSave, buttonCancel;
     private Task taskData = new Task.TaskBuilder("").createTask();
     private Spinner editDropDownPriority;
-    private FloatingActionButton addNewTask;
 
     private boolean editMode = false;
     private Calendar calendar;
@@ -59,10 +63,11 @@ public class AddNewTaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.app_bar_main, container, false);
         View addtaskView = inflater.inflate(R.layout.fragment_addtask, container, false);
 
-        addNewTask = mainView.findViewById(R.id.fab);
+        ((MainActivity) getActivity()).getNewTaskFAB().setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getNewTaskFAB().setEnabled(false);
+
         editTextTitle = addtaskView.findViewById(R.id.edit_task_title);
         editTextDate = addtaskView.findViewById(R.id.edit_task_date);
         editTextTime = addtaskView.findViewById(R.id.edit_task_time);
@@ -152,7 +157,7 @@ public class AddNewTaskFragment extends Fragment {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
 
-                        ((MainActivity) getActivity()).setAlarm(newTask.getId(), editTextTitle.getText().toString(), millis);
+                        ((MainActivity) getActivity()).setAlarm(newTask.getId(), newTask.getTitle(), newTask.getDescription(), millis);
                         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
                         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
                     }
@@ -186,14 +191,22 @@ public class AddNewTaskFragment extends Fragment {
     }
 
     private void destroyFragment() {
+        dismissKeyboard(getActivity());
+
         FragmentManager fragmentManager = getParentFragmentManager();
 
-        addNewTask.setVisibility(View.VISIBLE);
-        addNewTask.setEnabled(true);
+        ((MainActivity) getActivity()).getNewTaskFAB().setVisibility(View.VISIBLE);
+        ((MainActivity) getActivity()).getNewTaskFAB().setEnabled(true);
+
         fragmentManager.beginTransaction().remove(this).commit();
         fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(MainActivity.getTaskManager().getTodoList())).commit();
+    }
 
-
+    public void dismissKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != activity.getCurrentFocus())
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus()
+                    .getApplicationWindowToken(), 0);
     }
 
     private Task createTask() throws RuntimeException {

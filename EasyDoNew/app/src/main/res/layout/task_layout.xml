@@ -7,12 +7,14 @@
     android:background="@color/bluegrey600"
     android:layout_marginBottom="3dp">
 
+
     <ImageView
         android:id="@+id/taskPriority"
         android:layout_width="5dp"
         android:layout_height="70dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/taskEdit"
         android:scaleType="fitCenter"
         app:tint="@color/text_color_tertiary" />
 
@@ -20,6 +22,7 @@
         android:id="@+id/taskCheckBox"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_alignParentStart="true"
         android:layout_toEndOf="@id/taskPriority"
         android:background="?android:attr/listChoiceIndicatorMultiple"
         android:backgroundTint="@color/white"
@@ -144,8 +147,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/taskDelete"
+        android:layout_marginTop="10dp"
         android:background="@color/bluegrey800" />
 
 

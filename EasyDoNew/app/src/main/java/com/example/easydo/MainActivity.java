@@ -4,13 +4,16 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -23,23 +26,32 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.easydo.dao.TaskDBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Locale;
 
+
 public class MainActivity extends AppCompatActivity {
-    private static UiModeManager uiModeManager;
     private static final String TAG = "MainActivity";
     private FragmentManager fragmentManager;
+    private FloatingActionButton addNewTask;
     private static Context contextMain;
     private static boolean onTodoList = true;
     private static boolean isSettings = true;
     private static TaskDBHelper easDoDBHelper;
     private static TaskManager taskManager;
-    private BottomNavigationView bottomNavigationView;
-    private  FloatingActionButton addNewTask;
-    int reqID = 0;
+    private static Locale localeSetting;
+    private static Configuration conf;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        try {
+            conf.setLocale(localeSetting);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +60,20 @@ public class MainActivity extends AppCompatActivity {
             easDoDBHelper = new TaskDBHelper(this);
             taskManager = new TaskManager(easDoDBHelper.getReadableDatabase(), easDoDBHelper.getWritableDatabase());
 
+            SharedPreferences languagePreferences = getApplicationContext().getSharedPreferences("EasyDoLanguageSetting", 0); // 0 - for private mode
+
+            String languageSetting = languagePreferences.getString("lang", "");
+            if(languageSetting.isEmpty())
+                languageSetting = "en";
+
+            localeSetting = new Locale(languageSetting);
+            setLocale(localeSetting.getLanguage());
+
             getSupportActionBar().hide();
             setContentView(R.layout.activity_main);
-            uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
             TextView toolbar = findViewById(R.id.toolbartitle);
             contextMain = getApplicationContext();
-            //TODO LOCAL ÄNDERT SICH BEIM DREHEN
-            setLocale(getResources().getConfiguration().locale.toString());
+
             fragmentManager = getSupportFragmentManager();
             //fill the fragment with the TaskRecycler
             if (onTodoList) {
@@ -65,16 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.setText(getResources().getString(R.string.done));
             }
 
-            FloatingActionButton addNewTask = findViewById(R.id.fab);
-            addNewTask.setVisibility(View.VISIBLE);
-            addNewTask.setEnabled(true);
+            addNewTask = findViewById(R.id.fab);
 
             addNewTask.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment()).addToBackStack("add new task").commit();
-                    addNewTask.setVisibility(View.GONE);
-                    addNewTask.setEnabled(false);
                 }
             });
             createNotificationChannel();
@@ -102,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                             fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getTodoList())).addToBackStack("todo view").commit();
                         } else {
                             toolbar.setText(getResources().getString(R.string.done));
-                            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("todo view").commit();
+                            fragmentManager.beginTransaction().replace(R.id.host_fragment_content_main, TaskRecyclerFragment.newInstance(taskManager.getDoneList())).addToBackStack("done view").commit();
                         }
                     }
                 }
@@ -149,47 +164,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setLocale(String lang) {
-        Configuration configuration = contextMain.getResources().getConfiguration();
-        Locale locale = new Locale(lang);
 
-        if (!configuration.locale.equals(locale)) {
-            Locale.setDefault(locale);
-            configuration.locale = locale;
-            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
-            recreate();
-        }
+        Locale appLocale = new Locale(lang);
+        Locale.setDefault(appLocale);
+
+        localeSetting = appLocale;
+
+        Resources appRessources = getResources();
+        DisplayMetrics displayMetrics = appRessources.getDisplayMetrics();
+        Configuration configuration = appRessources.getConfiguration();
+        configuration.locale = appLocale;
+        appRessources.updateConfiguration(configuration, displayMetrics);
+
     }
 
     public static TaskManager getTaskManager() {
         return taskManager;
     }
 
-    public static UiModeManager getUiModeManager() {
-        return uiModeManager;
+    public FloatingActionButton getNewTaskFAB() {
+        return addNewTask;
     }
+
 
     public static Context getMainContext() {
         return contextMain;
     }
 
     private void createNotificationChannel() {
+        Log.d(TAG, "createNotificationChannel: called");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence title = "Todo app channel";
             String description = "Todo app channel";
             int priority = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel("Alarm", title, priority);
+
+            NotificationChannel notificationChannel = new NotificationChannel("EasyDoAlarm", title, priority);
             notificationChannel.setDescription(description);
+            notificationChannel.setSound(null, null);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.deleteNotificationChannel(notificationChannel.getId());
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
 
-    public void setAlarm(int id, String title, long millis) {
+    public void setAlarm(int id, String title, String message, long millis) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, Alarm.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
+        intent.putExtra("message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, 0);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
@@ -215,7 +239,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public  FloatingActionButton getNewTaskFAB(){
-        return addNewTask;
-    }
 }

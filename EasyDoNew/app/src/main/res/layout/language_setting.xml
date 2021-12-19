@@ -17,26 +17,29 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
             <RadioButton
-                android:id="@+id/redio_eng"
+                android:id="@+id/radio_eng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="20dp"
+                android:buttonTint="@color/white"
                 android:text="@string/english"/>
             <RadioButton
-                android:id="@+id/redio_ger"
+                android:id="@+id/radio_ger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="20dp"
+                android:buttonTint="@color/white"
                 android:text="@string/german"
                 />
             <RadioButton
-                android:id="@+id/redio_hun"
+                android:id="@+id/radio_hun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="20dp"
+                android:buttonTint="@color/white"
                 android:text="@string/hungarian"/>
         </RadioGroup>
     </LinearLayout>

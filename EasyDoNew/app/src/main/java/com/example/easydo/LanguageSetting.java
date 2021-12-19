@@ -1,5 +1,6 @@
 package com.example.easydo;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,36 +10,55 @@ import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 public class LanguageSetting extends Fragment {
     private RadioButton radioButtonEng;
     private RadioButton radioButtonGer;
     private RadioButton radioButtonHun;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View viewLanguageSetting = inflater.inflate(R.layout.language_setting, container, false);
-        radioButtonEng = viewLanguageSetting.findViewById(R.id.redio_eng);
-        radioButtonGer = viewLanguageSetting.findViewById(R.id.redio_ger);
-        radioButtonHun = viewLanguageSetting.findViewById(R.id.redio_hun);
+        radioButtonEng = viewLanguageSetting.findViewById(R.id.radio_eng);
+        radioButtonGer = viewLanguageSetting.findViewById(R.id.radio_ger);
+        radioButtonHun = viewLanguageSetting.findViewById(R.id.radio_hun);
+
+        prefs = ((MainActivity) getActivity()).getApplicationContext().getSharedPreferences("EasyDoLanguageSetting", 0);
+        editor = prefs.edit();
+
+        switch(prefs.getString("lang", "")){
+            case "de":
+                radioButtonGer.setChecked(true);
+                break;
+            case "hu":
+                radioButtonHun.setChecked(true);
+                break;
+            default:
+                radioButtonEng.setChecked(true);
+        }
+
         LanguageSetting languageSetting = new LanguageSetting();
         radioButtonEng.setOnClickListener(set -> {
-            ((MainActivity) getActivity()).setLocale("en");
-            radioButtonEng.setChecked(true);
-            getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
+            setAppLanguage("en", languageSetting);
         });
         radioButtonGer.setOnClickListener(set -> {
-            ((MainActivity) getActivity()).setLocale("de");
-            radioButtonGer.setChecked(true);
-            getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
+            setAppLanguage("de", languageSetting);
         });
         radioButtonHun.setOnClickListener(set -> {
-            ((MainActivity) getActivity()).setLocale("hu");
-            radioButtonHun.setChecked(true);
-            getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, languageSetting).commit();
+            setAppLanguage("hu", languageSetting);
         });
         return viewLanguageSetting;
+    }
+
+    private void setAppLanguage(String language, LanguageSetting langSetting) {
+        ((MainActivity) getActivity()).setLocale(language);
+        editor.putString("lang", language);
+        editor.commit();
+
+        getParentFragmentManager().beginTransaction().replace(R.id.host_fragment_content_main, langSetting).commit();
+        ((MainActivity) getActivity()).recreate();
     }
 }

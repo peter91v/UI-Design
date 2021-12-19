@@ -178,7 +178,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 FragmentManager fragmentManager = ((AppCompatActivity) taskContext).getSupportFragmentManager();
 
                 fragmentManager.beginTransaction().add(R.id.host_fragment_content_main, new AddNewTaskFragment(taskList.get(position))).addToBackStack("edit task").commit();
-                deleteTaskListEntry(position);
+                deleteTaskListEntry(holder.getAdapterPosition());
             }
         });
 
