@@ -190,7 +190,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AppCompatAlertDialogStyle)
-                        .setTitle("Do you want to delete this task?")
+                        .setTitle(R.string.delete_notification)
                         .setCancelable(true)
                         .setPositiveButton(v.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override

@@ -21,7 +21,7 @@
         >
 
         <TextView
-            android:layout_width="105dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -54,7 +54,7 @@
         >
 
         <TextView
-            android:layout_width="105dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -83,7 +83,7 @@
         >
 
         <TextView
-            android:layout_width="105dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -124,13 +124,13 @@
         >
 
         <TextView
-            android:layout_width="105dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:width="2dp"
             android:textStyle="bold"
             android:textSize="20dp"
             android:gravity="center|left"
-            android:text="Priority" />
+            android:text="@string/priority" />
 
             <Spinner
                 android:id="@+id/edit_task_Priority"

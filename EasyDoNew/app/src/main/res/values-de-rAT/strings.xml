@@ -10,6 +10,7 @@
     <string name="date">Datum</string>
     <string name="task_title">Aufgabentitel</string>
     <string name="add_new_task">Aufgabe</string>
+    <string name="priority">Priorität</string>
 
     <!--Settings Menu-->
     <string name="language">Sprache</string>
@@ -25,6 +26,8 @@
     <string name="done">Abgeschlossen</string>
     <string name="settings">Optionen</string>
 
+    <string name="delete_notification">Möchten Sie diese Aufgabe löschen?</string>
+
     <!--Runtime Error Texts for toasts-->
     <string name="no_title">Kein Titel angegeben</string>
     <!--Alarmdialog -->
@@ -38,4 +41,5 @@
     <string name="low">Unwichtig (Grüne markierung)</string>
     <string name="medium">Wichtig (Gelbe markierung)</string>
     <string name="high">Sehr wichtig (Rote markierung)</string>
+
 </resources>

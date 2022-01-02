@@ -10,6 +10,7 @@
     <string name="date">Dátum</string>
     <string name="task_title">Feladatnév</string>
     <string name="add_new_task">Feladat</string>
+    <string name="priority">Prioritás</string>
 
     <!--Settings Menu-->
     <string name="language">Nyelv</string>
@@ -25,6 +26,8 @@
     <string name="done">Kész feladatok</string>
     <string name="settings">Beállítások</string>
 
+    <string name="delete_notification">Szeretné törölni ezt a feladatot?</string>
+
     <!--Runtime Error Texts for toasts-->
     <string name="no_title">Feladatnév nincs megadva!</string>
 
@@ -39,4 +42,5 @@
     <string name="low">Nem fontos</string>
     <string name="medium">Fontos</string>
     <string name="high">Nagyon fontos</string>
+
 </resources>
